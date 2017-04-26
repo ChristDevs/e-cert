@@ -5,7 +5,8 @@
         <section class="section-account">
             <div class="img-backdrop" style="background-image: url('{{asset('assets/img/bg-auth.jpg')}}')"></div>
             <div class="spacer"></div>
-            <div class="card contain-sm style-transparent">
+            <br>
+            <div class="card contain-sm">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-6">
@@ -42,7 +43,7 @@
                                         </div>
                                     </div><!--end .col -->
                                     <div class="col-xs-6 text-right">
-                                        <button class="btn btn-primary btn-raised" type="submit"><i class="fa fa-fw fa-unlock"></i> &nbsp; Login</button>
+                                        <button class="btn btn-success btn-raised" type="submit"><i class="fa fa-fw fa-unlock"></i> &nbsp; Login</button>
                                     </div><!--end .col -->
                                 </div><!--end .row -->
                             </form>
