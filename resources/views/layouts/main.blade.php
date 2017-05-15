@@ -16,14 +16,20 @@
 		<link type="text/css" rel="stylesheet" href="{{asset('assets/theme-default/font-awesome.min.css')}}" />
 		<link type="text/css" rel="stylesheet" href="{{asset('assets/theme-default/material-design-iconic-font.min.css')}}" />
 		<!-- END STYLESHEETS -->
+		@stack('css')
 
 		<!-- HTML5 shim and Respond.js')}} IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 		<script type="text/javascript" src="{{asset('assets/libs/utils/html5shiv.js')}}?1403934957"></script>
 		<script type="text/javascript" src="{{asset('assets/libs/utils/respond.min.js')}}?1403934956"></script>
 		<![endif]-->
+		 <script>
+			window.Laravel = {!! json_encode([
+				'csrfToken' => csrf_token(),
+			]) !!};
+		</script>
 	</head>
-	<body class="menubar-hoverable header-fixed ">
+	<body class="menubar-hoverable menubar-pin header-fixed ">
 
 		<!-- BEGIN HEADER-->
 		<header id="header" >
@@ -162,7 +168,7 @@
 
 			<!-- BEGIN CONTENT-->
 			<div id="content">
-				<section>
+				<section id="app">
 					@yield('content')
 				</section>
 			</div><!--end #content-->

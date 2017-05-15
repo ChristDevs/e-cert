@@ -6,19 +6,19 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "doctrine/dbal": "^2.5",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "swiftmailer/swiftmailer": "v5.4.6"
+        "laravel/tinker": "~1.0"
     },
-    "require-dev": {
-    },
+    "require-dev": {},
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": ["app/Support/Helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {

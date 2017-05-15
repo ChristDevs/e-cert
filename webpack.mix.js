@@ -15,6 +15,7 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .scripts([
         'resources/assets/js/source/App.js',
         'resources/assets/js/source/AppCard.js',
+        'resources/assets/js/source/AppForm.js',
         'resources/assets/js/source/AppNavSearch.js',
         'resources/assets/js/source/AppNavigation.js',
         'resources/assets/js/source/AppOffcanvas.js',

@@ -43,7 +43,7 @@
 							</a>
 							<!--start submenu -->
 							<ul>
-								<li><a href="" ><span class="title">Apply </span></a></li>
+								<li><a href="{{route('birth.create')}}" ><span class="title">Apply </span></a></li>
 								<li><a href="../../html/mail/compose.html" ><span class="title">View Certicates</span></a></li>
 								<li><a href="../../html/mail/compose.html" ><span class="title">View Applicatons</span></a></li>
 							<!--	

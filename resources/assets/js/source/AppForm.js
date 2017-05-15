@@ -1,133 +1,132 @@
 (function(namespace, $) {
-	"use strict";
+    "use strict";
 
-	var AppForm = function() {
-		// Create reference to this instance
-		var o = this;
-		// Initialize app when document is ready
-		$(document).ready(function() {
-			o.initialize();
-		});
+    var AppForm = function() {
+        // Create reference to this instance
+        var o = this;
+        // Initialize app when document is ready
+        $(document).ready(function() {
+            o.initialize();
+        });
 
-	};
-	var p = AppForm.prototype;
+    };
+    var p = AppForm.prototype;
 
-	// =========================================================================
-	// INIT
-	// =========================================================================
+    // =========================================================================
+    // INIT
+    // =========================================================================
 
-	p.initialize = function() {
-		// Init events
-		this._enableEvents();
-		
-		this._initRadioAndCheckbox();
-		this._initFloatingLabels();
-		this._initValidation();
-	};
-	
-	// =========================================================================
-	// EVENTS
-	// =========================================================================
+    p.initialize = function() {
+        // Init events
+        this._enableEvents();
 
-	// events
-	p._enableEvents = function () {
-		var o = this;
+        this._initRadioAndCheckbox();
+        this._initFloatingLabels();
+        this._initValidation();
+    };
 
-		// Link submit function
-		$('[data-submit="form"]').on('click', function (e) {
-			e.preventDefault();
-			var formId = $(e.currentTarget).attr('href');
-			$(formId).submit();
-		});
-		
-		// Init textarea autosize
-		$('textarea.autosize').on('focus', function () {
-			$(this).autosize({append: ''});
-		});
-	};
-	
-	// =========================================================================
-	// RADIO AND CHECKBOX LISTENERS
-	// =========================================================================
+    // =========================================================================
+    // EVENTS
+    // =========================================================================
 
-	p._initRadioAndCheckbox = function () {
-		// Add a span class the styled checkboxes and radio buttons for correct styling
-		$('.checkbox-styled input, .radio-styled input').each(function () {
-			if ($(this).next('span').length === 0) {
-				$(this).after('<span></span>');
-			}
-		});
-	};
-	
-	// =========================================================================
-	// FLOATING LABELS
-	// =========================================================================
+    // events
+    p._enableEvents = function() {
+        var o = this;
 
-	p._initFloatingLabels = function () {
-		var o = this;
+        // Link submit function
+        $('[data-submit="form"]').on('click', function(e) {
+            e.preventDefault();
+            var formId = $(e.currentTarget).attr('href');
+            $(formId).submit();
+        });
 
-		$('.floating-label .form-control').on('keyup change', function (e) {
-			var input = $(e.currentTarget);
+        // Init textarea autosize
+        $('textarea.autosize').on('focus', function() {
+            $(this).autosize({ append: '' });
+        });
+    };
 
-			if ($.trim(input.val()) !== '') {
-				input.addClass('dirty').removeClass('static');
-			} else {
-				input.removeClass('dirty').removeClass('static');
-			}
-		});
+    // =========================================================================
+    // RADIO AND CHECKBOX LISTENERS
+    // =========================================================================
 
-		$('.floating-label .form-control').each(function () {
-			var input = $(this);
+    p._initRadioAndCheckbox = function() {
+        // Add a span class the styled checkboxes and radio buttons for correct styling
+        $('.checkbox-styled input, .radio-styled input').each(function() {
+            if ($(this).next('span').length === 0) {
+                $(this).after('<span></span>');
+            }
+        });
+    };
 
-			if ($.trim(input.val()) !== '') {
-				input.addClass('static').addClass('dirty');
-			}
-		});
+    // =========================================================================
+    // FLOATING LABELS
+    // =========================================================================
 
-		$('.form-horizontal .form-control').each(function () {
-			$(this).after('<div class="form-control-line"></div>');
-		});
-	};
-	
-	// =========================================================================
-	// VALIDATION
-	// =========================================================================
+    p._initFloatingLabels = function() {
+        var o = this;
 
-	p._initValidation = function () {
-		if (!$.isFunction($.fn.validate)) {
-			return;
-		}
-		$.validator.setDefaults({
-			highlight: function (element) {
-				$(element).closest('.form-group').addClass('has-error');
-			},
-			unhighlight: function (element) {
-				$(element).closest('.form-group').removeClass('has-error');
-			},
-			errorElement: 'span',
-			errorClass: 'help-block',
-			errorPlacement: function (error, element) {
-				if (element.parent('.input-group').length) {
-					error.insertAfter(element.parent());
-				}
-				else if (element.parent('label').length) {
-					error.insertAfter(element.parent());
-				}
-				else {
-					error.insertAfter(element);
-				}
-			}
-		});
+        $('.floating-label .form-control').on('keyup change', function(e) {
+            var input = $(e.currentTarget);
 
-		$('.form-validate').each(function () {
-			var validator = $(this).validate();
-			$(this).data('validator', validator);
-		});
-	};
-	
-	// =========================================================================
-	// DEFINE NAMESPACE
-	// =========================================================================
+            if ($.trim(input.val()) !== '') {
+                input.addClass('dirty').removeClass('static');
+            } else {
+                input.removeClass('dirty').removeClass('static');
+            }
+        });
 
-	window.materialadmin.AppForm = new AppForm;
+        $('.floating-label .form-control').each(function() {
+            var input = $(this);
+
+            if ($.trim(input.val()) !== '') {
+                input.addClass('static').addClass('dirty');
+            }
+        });
+
+        $('.form-horizontal .form-control').each(function() {
+            $(this).after('<div class="form-control-line"></div>');
+        });
+    };
+
+    // =========================================================================
+    // VALIDATION
+    // =========================================================================
+
+    p._initValidation = function() {
+        if (!$.isFunction($.fn.validate)) {
+            return;
+        }
+        $.validator.setDefaults({
+            highlight: function(element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-error');
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function(error, element) {
+                if (element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+                } else if (element.parent('label').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        $('.form-validation').each(function() {
+            var validator = $(this).validate();
+            $(this).data('validator', validator);
+        });
+        $('.date-picker').datepicker({ autoclose: true, todayHighlight: true, format: "yyyy-mm-dd" });
+    };
+
+    // =========================================================================
+    // DEFINE NAMESPACE
+    // =========================================================================
+
+    window.materialadmin.AppForm = new AppForm;
 }(this.materialadmin, jQuery)); // pass in (namespace, jQuery):
