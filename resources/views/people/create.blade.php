@@ -17,40 +17,40 @@
 												<div class="col-xs-12">
 													<div class="row">
 														<div class="col-md-4">
-															<div class="form-group floating-label">
-																<input type="text" class="form-control input-lg" id="firstname" name="first_name">
+															<div class="form-group floating-label {{error($errors, 'first_name')}}">
+																<input value="{{old('first_name')}}" type="text" class="form-control input-lg" id="firstname" name="first_name">
 																<label for="firstname">First name</label>
                                                                 {!! error_msg($errors, 'first_name') !!}
 															</div>
 														</div><!--end .col -->
 														<div class="col-md-4">
-															<div class="form-group floating-label">
-																<input type="text" class="form-control input-lg" id="lastname" name="last_name">
+															<div class="form-group floating-label {{error($errors, 'last_name')}}">
+																<input value="{{old('last_name')}}" type="text" class="form-control input-lg" id="lastname" name="last_name">
 																<label for="lastname">Last name</label>
-                                                                {!! error_msg($errors, 'first_name') !!}
+                                                                {!! error_msg($errors, 'last_name') !!}
 															</div>
 														</div><!--end .col -->
 														<div class="col-md-4">
-															<div class="form-group floating-label">
-																<input type="text" class="form-control input-lg" id="company" name="sir_name">
+															<div class="form-group floating-label {{error($errors, 'sir_name')}}">
+																<input value="{{old('sir_name')}}" type="text" class="form-control input-lg" id="company" name="sir_name">
 																<label for="company">Sir Name</label>
-                                                                {!! error_msg($errors, 'first_name') !!}
+                                                                {!! error_msg($errors, 'sir_name') !!}
 															</div>
 														</div><!--end .col -->
                                                     </div><!--end .row -->
                                                     <div class="row">
 														<div class="col-md-6">
-															<div class="form-group floating-label">
-																<input type="text" class="form-control date-picker" name="dob">
+															<div class="form-group floating-label {{error($errors, 'dob')}}">
+																<input value="{{old('dob')}}" type="text" class="form-control date-picker" name="dob">
 																<label for="functiontitle">Date Of Birth</label>
-                                                                {!! error_msg($errors, 'first_name') !!}
+                                                                {!! error_msg($errors, 'dob') !!}
 															</div>
 														</div><!--end .col -->
                                                         <div class="col-md-6">
-															<div class="form-group floating-label">
-																<input type="text" class="form-control" id="functiontitle" name="id_no">
+															<div class="form-group floating-label {{error($errors, 'id_no')}}">
+																<input value="{{old('id_no')}}" type="text" class="form-control" id="functiontitle" name="id_no">
 																<label for="functiontitle">ID Number</label>
-                                                                {!! error_msg($errors, 'first_name') !!}
+                                                                {!! error_msg($errors, 'id_no') !!}
 															</div>
 														</div><!--end .col -->
 													</div><!--end .row -->
@@ -58,7 +58,6 @@
 											</div><!--end .row -->
 										</div><!--end .card-body -->
 										<!-- END DEFAULT FORM ITEMS -->
-
 										<!-- BEGIN FORM TABS -->
 										<div class="card-head style-primary">
 											<ul class="nav nav-tabs tabs-text-contrast tabs-accent" data-toggle="tabs">
@@ -77,42 +76,47 @@
 													<div class="col-md-8">
 														<div class="row">
 															<div class="col-md-6">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="mobile" name="mobile" data-inputmask="'mask':'(999) 999-9999'">
+																<div class="form-group {{error($errors, 'mobile')}}">
+																	<input value="{{old('mobile')}}" type="text" class="form-control" id="mobile" name="mobile" data-inputmask="'mask':'(999) 999-9999'">
 																	<label for="mobile">Mobile</label>
-                                                                    {!! error_msg($errors, 'first_name') !!}
+                                                                    {!! error_msg($errors, 'mobile') !!}
 																</div>
 															</div><!--end .col -->
 															<div class="col-md-6">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="phone" name="phone" data-inputmask="'mask':'(999) 999-9999'">
+																<div class="form-group {{error($errors, 'phone')}}">
+																	<input value="{{old('phone')}}" type="text" class="form-control" id="phone" name="phone" data-inputmask="'mask':'(999) 999-9999'">
 																	<label for="phone">Alternative Phone</label>
+                                                                    {!! error_msg($errors, 'phone') !!}
 																</div>
 															</div><!--end .col -->
 														</div><!--end .row -->
-														<div class="form-group">
-															<input type="email" class="form-control" id="email" name="email">
+														<div class="form-group {{error($errors, 'email')}}">
+															<input value="{{old('email')}}" type="email" class="form-control" id="email" name="email">
 															<label for="email">Email</label>
+                                                            {!! error_msg($errors, 'email') !!}
 														</div><!--end .form-group -->
 														<div class="row">
 															<div class="col-md-12">
 																<div class="form-group">
-																	<input type="text" class="form-control" id="street" name="street">
+																	<input value="{{old('street')}}" type="text" class="form-control" id="street" name="street">
 																	<label for="street">Street</label>
+                                                                    {!! error_msg($errors, 'street') !!}
 																</div>
 															</div><!--end .col -->
 														</div><!--end .row -->
 														<div class="row">
 															<div class="col-md-8">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="city" name="city">
+																<div class="form-group {{error($errors, 'city')}}">
+																	<input value="{{old('city')}}" type="text" class="form-control" id="city" name="city">
 																	<label for="city">City</label>
+                                                                    {!! error_msg($errors, 'city') !!}
 																</div>
 															</div><!--end .col -->
 															<div class="col-md-4">
-																<div class="form-group">
-																	<input type="text" class="form-control" id="zip" name="zip">
+																<div class="form-group {{error($errors, 'zip')}}">
+																	<input value="{{old('zip')}}" type="text" class="form-control" id="zip" name="zip">
 																	<label for="zip">Zip</label>
+                                                                    {!! error_msg($errors, 'zip') !!}
 																</div>
 															</div><!--end .col -->
 														</div><!--end .row -->

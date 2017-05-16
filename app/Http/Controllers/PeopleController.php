@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entities\Person;
 use Illuminate\Http\Request;
+use App\Http\Requests\PersonRequest;
 
 class PeopleController extends Controller
 {
@@ -46,8 +47,11 @@ class PeopleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PersonRequest $request)
     {
+        $person = $this->people->create($request->all());
+
+        return redirectWithInfo(route('people.index'), "Profile for {$person->fullname} was created successfully");
     }
 
     /**

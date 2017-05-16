@@ -11,7 +11,7 @@ class Person extends Model
      *
      * @var array
      **/
-    public $fillable = ['first_name', 'last_name', 'sir_name', 'dob', 'user_id', 'id_no', 'gender', 'name_of_mother', 'residence', 'name_of_father', 'birth_place', 'county_of_birth', 'province_of_birth', 'alive', 'relation', 'spouse_id_no', 'cause_of_death'];
+    public $fillable = ['first_name', 'last_name', 'sir_name', 'dob', 'user_id', 'id_no', 'gender', 'name_of_mother', 'residence', 'name_of_father', 'birth_place', 'county_of_birth', 'province_of_birth', 'alive', 'relation', 'spouse_id_no', 'cause_of_death', 'city', 'email', 'moblie', 'phone', 'zip', 'street'];
 
     /**
      * Date attributes.
