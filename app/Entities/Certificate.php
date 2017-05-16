@@ -32,4 +32,14 @@ class Certificate extends Model
     {
         return $this->belongsTo('App\User', 'auth_by');
     }
+
+    /**
+     * Get all documents owned by a model.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\MoprhToRelation
+     **/
+    public function files()
+    {
+        return $this->morphMany('App\Entities\File', 'entity');
+    }
 }

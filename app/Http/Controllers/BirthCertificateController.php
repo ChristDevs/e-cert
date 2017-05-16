@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Person;
+use App\Support\FileUpload;
 use Illuminate\Http\Request;
 use App\Entities\Certificate;
 use App\Http\Requests\BirthCertificateRequest;
 
 class BirthCertificateController extends Controller
 {
+    use FileUpload;
     /**
      * Certificate model instance.
      *
@@ -42,7 +44,9 @@ class BirthCertificateController extends Controller
      */
     public function index()
     {
-        return $this->cert->all();
+        $certs = $this->cert->all();
+
+        return view('certificates.birth.index', compact('certs'));
     }
 
     /**
@@ -66,7 +70,8 @@ class BirthCertificateController extends Controller
     {
         $notes = $request->has('notes') ? $request->get('notes') : '';
         $person = $this->people->create($request->input());
-        $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by')]);
+        $cert = $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by')]);
+        $this->upload($request, $cert);
 
         return redirectWithInfo(route('birth.index'));
     }

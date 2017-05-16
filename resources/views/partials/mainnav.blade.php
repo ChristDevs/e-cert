@@ -7,7 +7,7 @@
 						</a>
 					</div>
 					<div class="expanded">
-						<a href="../../html/dashboards/dashboard.html">
+						<a href="{{url('home')}}">
 							<span class="text-lg text-bold text-primary ">{{config('app.name')}}</span>
 						</a>
 					</div>
@@ -19,7 +19,7 @@
 
 						<!-- BEGIN DASHBOARD -->
 						<li>
-							<a href="../../html/dashboards/dashboard.html" class="active">
+							<a href="{{url('home')}}" class="{{isActive('home')}}">
 								<div class="gui-icon"><i class="md md-home"></i></div>
 								<span class="title">Dashboard</span>
 							</a>
@@ -29,7 +29,7 @@
 						
 						<!-- BEGIN DASHBOARD -->
 						<li>
-							<a href="../../html/layouts/builder.html" >
+							<a href="{{route('people.index')}}"  class="{{isActive('people*')}}">
 								<div class="gui-icon"><i class="md md-face-unlock"></i></div>
 								<span class="title">People</span>
 							</a>
@@ -43,9 +43,8 @@
 							</a>
 							<!--start submenu -->
 							<ul>
-								<li><a href="{{route('birth.create')}}" ><span class="title">Apply </span></a></li>
-								<li><a href="../../html/mail/compose.html" ><span class="title">View Certicates</span></a></li>
-								<li><a href="../../html/mail/compose.html" ><span class="title">View Applicatons</span></a></li>
+								<li><a href="{{route('birth.create')}}"  class="{{isActive('birth/create')}}"><span class="title">Apply </span></a></li>
+								<li><a href="{{route('birth.index')}}" class="{{isActive('birth')}}" ><span class="title">View Applicatons</span></a></li>
 							<!--	
 							<li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>
 								<li><a href="../../html/mail/message.html" ><span class="title">View message</span></a></li>
@@ -62,7 +61,6 @@
 							<!--start submenu -->
 							<ul>
 								<li><a href="" ><span class="title">Apply </span></a></li>
-								<li><a href="../../html/mail/compose.html" ><span class="title">View Certicates</span></a></li>
 								<li><a href="../../html/mail/compose.html" ><span class="title">View Applicatons</span></a></li>
 							<!--	
 							<li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>
@@ -80,7 +78,6 @@
 							<!--start submenu -->
 							<ul>
 								<li><a href="" ><span class="title">Apply </span></a></li>
-								<li><a href="../../html/mail/compose.html" ><span class="title">View Certicates</span></a></li>
 								<li><a href="../../html/mail/compose.html" ><span class="title">View Applicatons</span></a></li>
 							<!--	
 							<li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>

@@ -13,16 +13,17 @@
 								<div class="card">
 									<div class="card-body ">
 										<div id="rootwizard1" class="form-wizard form-wizard-horizontal">
-											<form action="{{route('birth.store')}}" class="form form-validation" novalidate="novalidate" method="post">
-												<div class="form-wizard-nav">
+											<form action="{{route('birth.store')}}" class="form form-validation" novalidate="novalidate" method="post" enctype="multpart/form-data">
+												<div class="form-wizard-nav row">
 													<div class="progress"><div class="progress-bar progress-bar-primary"></div></div>
 													<ul class="nav nav-justified">
 														<li class="active"><a href="#tab1" data-toggle="tab"><span class="step">1</span> <span class="title">Basic Information</span></a></li>
 														<li><a href="#tab2" data-toggle="tab"><span class="step">2</span> <span class="title">Location and Residence</span></a></li>
 														<li><a href="#tab3" data-toggle="tab"><span class="step">3</span> <span class="title">Parents Information</span></a></li>
+														<li><a href="#tab4" data-toggle="tab"><span class="step">4</span> <span class="title">Supporting Documents</span></a></li>
 													</ul>
 												</div><!--end .form-wizard-nav -->
-												<div class="tab-content clearfix">
+												<div class="tab-content clearfix col-sm-10 col-sm-offset-1 row">
 													<div class="tab-pane active" id="tab1">
 														<br/><br/>
 														{{csrf_field()}}
@@ -92,12 +93,12 @@
 														<br/><br/>
 														<div class="form-group {{error($errors, 'name_of_mother')}}">
 															<input type="text" name="name_of_mother" class="form-control" required="true">
-															<label for="birth_place" class="control-label">Name of Father</label>
+															<label for="birth_place" class="control-label">Name of Mother</label>
 															{!! error_msg($errors, 'name_of_mother') !!}
 														</div>
 														<div class="form-group {{error($errors, 'name_of_father')}}">
 															<input type="text" name="name_of_father" class="form-control" required="true" >
-															<label for="Address" class="control-label">Name of Mother</label>
+															<label for="Address" class="control-label">Name of Father</label>
 															{!! error_msg($errors, 'name_of_father') !!}
 														</div>
 														<div class="form-group {{error($errors, 'overseen_by')}}">
@@ -111,16 +112,40 @@
 															
 															<label for="notes" class="control-label">Notes</label>
 														</div>
+														
+													</div><!--end #tab3 -->
+													<div class="tab-pane" id="tab4">
+														<br/><br/>
+														<div class="form-group {{error($errors, 'clinic_card')}}">
+															<input type="file" name="documents[]" required="true">
+															<label for="clinic_card" class="control-label">Clinic Card</label>
+															{!! error_msg($errors, 'clinic_card') !!}
+														</div>
+														<div class="form-group {{error($errors, 'mothers_id')}}">
+															<input type="file" name="documents[]" required="true">
+															<label for="mothers_id" class="control-label">Copy of Mothers ID</label>
+															{!! error_msg($errors, 'mothers_id') !!}
+														</div>
+														<div class="form-group {{error($errors, 'other')}}">
+															<input type="file" name="documents[]">
+															<label for="other" class="control-label">Any Other Supporting Document</label>
+															{!! error_msg($errors, 'other') !!}
+														</div>
+														<div class="form-group {{error($errors, 'other')}}">
+															<input type="file" name="documents[]">
+															<label for="other" class="control-label">Any Other Supporting Document</label>
+															{!! error_msg($errors, 'other') !!}
+														</div>
 														<div class="form-group">
 															<button type="submit" class="btn btn-success pull-right">Submit Application</button>
 														</div>
-													</div><!--end #tab3 -->
+													</div><!--end #tab4 -->
 												</div><!--end .tab-content -->
-												<ul class="pager wizard">
-													<li class="previous first"><a class="btn-raised" href="javascript:void(0);">First</a></li>
-													<li class="previous"><a class="btn-raised" href="javascript:void(0);">Previous</a></li>
-													<li class="next last"><a class="btn-raised" href="javascript:void(0);">Last</a></li>
-													<li class="next"><a class="btn-raised" href="javascript:void(0);">Next</a></li>
+												<ul class="pager wizard col-xs-12 row">
+													<li class="previous first"><a class="btn ink-reaction btn-success" href="javascript:void(0);"><i class="md md-fast-rewind"></i> &nbsp; First</a></li>
+													<li class="previous"><a class="btn ink-reaction btn-info" href="javascript:void(0);"><i class="md md-skip-previous"></i> &nbsp; Previous</a></li>
+													<li class="next last"><a class="btn-accent ink-reaction btn" href="javascript:void(0);"><i class="md md-fast-forward"></i> &nbsp; Last</a></li>
+													<li class="next"><a class="btn-primary btn ink-reaction" href="javascript:void(0);"><i class="md md-skip-next"></i> &nbsp; Next</a></li>
 												</ul>
 											</form>
 										</div><!--end #rootwizard -->

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+ @extends('layouts.main')
     @section('content')
         <div class="section-body">
 						<div class="card">
@@ -18,12 +18,12 @@
 											@foreach($people as $person)
 												<div class="col-xs-12 col-lg-6 hbox-xs">
 													<div class="hbox-column width-2">
-														<img class="img-circle img-responsive pull-left" src="../../../assets/img/avatar9.jpg?1404026744" alt="" />
+														<img class="img-circle img-responsive pull-left" src="{{asset('assets/img/avatar1.jpg')}}" alt="" />
 													</div><!--end .hbox-column -->
 													<div class="hbox-column v-top">
 														<div class="clearfix">
 															<div class="col-lg-12 margin-bottom-lg">
-																<a class="text-lg text-medium" href="../../../html/pages/contacts/details.html">{{$person->fullname}}</a>
+																<a class="text-lg text-medium" href="{{route('people.show', $person->id)}}">{{$person->fullname}}</a>
 															</div>
 														</div>
 														<div class="clearfix opacity-75">
@@ -42,7 +42,10 @@
 														<div class="stick-top-right small-padding dropdown">
 															<a href="#" class="dropdown-toggle btn btn-icon-toggle ink-reaction"  data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
 															<ul class="dropdown-menu">
-																<li><a data-toggle="modal" href="#" data-backdrop="false" data-target='#person-{{$person->id}}'><i class="fa fa-trash"></i> &nbsp; Delete</a></li>
+																<li><a data-toggle="modal" href="#"  data-target='#person-{{$person->id}}'><i class="fa fa-trash"></i> &nbsp; Delete</a></li>
+																<li><a href="{{route('people.show', $person->id)}}">
+																<i class="md md-send"></i> &nbsp; View
+																</a></li>
 															</ul>
 														</div>
 													</div><!--end .hbox-column -->
@@ -87,4 +90,5 @@
 
 						</div><!--end .card -->
 					</div><!--end .section-body -->
+					<a class="md-btn md-fab md-fab-bottom-right btn-success ink-reaction" style="position:fixed !important; background-color: #009688;" href="{{route('people.create')}}"><i class="md md-create fa-lg" style="margin-top:10px !important; color:#fff;"></i></a>
     @endsection

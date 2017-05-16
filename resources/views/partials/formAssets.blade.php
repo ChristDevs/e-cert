@@ -9,4 +9,6 @@
 		<script src="{{asset('assets/libs/jquery-validation/dist/additional-methods.min.js')}}"></script>
         <script src="{{asset('assets/core/demo/Demo.js')}}"></script>
         <script src="{{asset('assets/core/demo/DemoFormWizard.js')}}"></script>>
+        <script src="{{asset('assets/libs/inputmask/jquery.inputmask.bundle.min.js')}}"></script>
+
 @endpush

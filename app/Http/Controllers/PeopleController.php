@@ -36,6 +36,7 @@ class PeopleController extends Controller
      */
     public function create()
     {
+        return view('people.create');
     }
 
     /**
@@ -52,12 +53,13 @@ class PeopleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param Person $person Bound model
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Person $person)
     {
+        return view('people.show', compact('person'));
     }
 
     /**
