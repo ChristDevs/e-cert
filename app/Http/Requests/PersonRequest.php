@@ -28,6 +28,7 @@ class PersonRequest extends FormRequest
             'last_name' => 'required|alpha|min:3',
             'sir_name' => 'required|alpha|min:3',
             'mobile' => 'required',
+            'gender' => 'required|in:male,female',
             'phone' => 'nullable',
             'email' => 'nullable|email|unique:people',
             'id_no' => 'nullable|numeric|unique:people',

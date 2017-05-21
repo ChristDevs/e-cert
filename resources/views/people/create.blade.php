@@ -39,19 +39,38 @@
 														</div><!--end .col -->
                                                     </div><!--end .row -->
                                                     <div class="row">
-														<div class="col-md-6">
+														<div class="col-md-4">
 															<div class="form-group floating-label {{error($errors, 'dob')}}">
 																<input value="{{old('dob')}}" type="text" class="form-control date-picker" name="dob">
 																<label for="functiontitle">Date Of Birth</label>
                                                                 {!! error_msg($errors, 'dob') !!}
 															</div>
 														</div><!--end .col -->
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
 															<div class="form-group floating-label {{error($errors, 'id_no')}}">
 																<input value="{{old('id_no')}}" type="text" class="form-control" id="functiontitle" name="id_no">
 																<label for="functiontitle">ID Number</label>
                                                                 {!! error_msg($errors, 'id_no') !!}
 															</div>
+														</div><!--end .col -->
+                                                        <div class="col-md-4">
+                                                            <div class="form-group {{error($errors, 'gender')}}">
+                                                                <strong>Gender</strong></br>
+                                                                <div class="radio-inline radio-styled">
+                                                                    <label>
+                                                                        <input type="radio" name="gender" value="male">
+                                                                        <span>Male</span>
+                                                                    </label>
+                                                                </div>
+                                                                &nbsp; &nbsp;
+                                                                <div class="radio-inline radio-styled">
+                                                                    <label>
+                                                                        <input type="radio" name="gender" value="female">
+                                                                        <span>Female</span>
+                                                                    </label>
+                                                                </div>
+                                                                <center>{!! error_msg($errors, 'gender') !!}</center>
+                                                            </div>
 														</div><!--end .col -->
 													</div><!--end .row -->
 												</div><!--end .col -->
