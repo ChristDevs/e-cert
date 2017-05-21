@@ -14,3 +14,5 @@ Homestead.yaml
 /storage/framework/views/*
 /storage/framework/sessions/*
 /storage/logs/*.log
+composer.lock
+/resources/assets/*
