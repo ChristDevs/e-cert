@@ -31,7 +31,6 @@ class CreatePeopleTable extends Migration
             $table->boolean('married')->default(false);
             $table->string('relation');
             $table->string('spouse_id_no');
-            $table->integer('user_id', false, true);
             $table->timestamps();
         });
     }
