@@ -28,7 +28,7 @@
 														</div>
 														<div class="clearfix opacity-75">
 															<div class="col-md-7">
-																<span class="glyphicon glyphicon-phone text-sm"></span> &nbsp; {{$person->dob->format('l d F Y')}}
+																<span class="glyphicon glyphicon-phone text-sm"></span> &nbsp; {{$person->dob}}
 															</div>
 															<div class="col-md-5">
 																<span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{ucfirst($person->gender)}}
@@ -46,6 +46,12 @@
 																<li><a href="{{route('people.show', $person->id)}}">
 																<i class="md md-send"></i> &nbsp; View
 																</a></li>
+																<li>
+																	<a href="{{route('birth.createExisting', $person->id)}}">
+																		<i class="md md-web"></i> 
+																		&nbsp; Create Birth Certificate
+																	</a>
+																</li>
 															</ul>
 														</div>
 													</div><!--end .hbox-column -->
@@ -90,5 +96,5 @@
 
 						</div><!--end .card -->
 					</div><!--end .section-body -->
-					<a class="md-btn md-fab md-fab-bottom-right btn-success ink-reaction" style="position:fixed !important; background-color: #009688;" href="{{route('people.create')}}"><i class="md md-create fa-lg" style="margin-top:10px !important; color:#fff;"></i></a>
+					<a class="md-btn md-fab md-fab-bottom-right btn-success ink-reaction" style="position:fixed !important; background-color: #009688;" href="{{route('people.create')}}"><i class="md md-add fa-lg" style="margin-top:13px !important; color:#fff;"></i></a>
     @endsection

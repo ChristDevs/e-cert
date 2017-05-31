@@ -24,6 +24,16 @@ class Certificate extends Model
     }
 
     /**
+     * Get uPersonser instance of the person that this certificate belongs to.
+     *
+     * @param Illuminate\Database\Eloquent\Relations\BelongsToRelation
+     **/
+    public function person()
+    {
+        return $this->belongsTo('App\Entities\Person');
+    }
+
+    /**
      * Get user instance of the person that authorized this certificate.
      *
      * @param Illuminate\Database\Eloquent\Relations\BelongsToRelation
@@ -41,5 +51,17 @@ class Certificate extends Model
     public function files()
     {
         return $this->morphMany('App\Entities\File', 'entity');
+    }
+
+    /**
+     * undocumented function summary.
+     *
+     * Undocumented function long description
+     *
+     * @param type var Description
+     **/
+    public function setSerialNumberAttribute()
+    {
+        $this->attributes['serial_number'] = (int) strtoupper(str_shuffle(time().rand()));
     }
 }

@@ -2,10 +2,10 @@
 
 $url = parse_url(getenv('DATABASE_URL'));
 
-$host = $url['host'];
-$username = $url['user'];
-$password = $url['pass'];
-$database = substr($url['path'], 1);
+$host = @$url['host'];
+$username = @$url['user'];
+$password = @$url['pass'];
+$database = @substr($url['path'], 1);
 
 return [
     /*
@@ -55,7 +55,7 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
         ],
 

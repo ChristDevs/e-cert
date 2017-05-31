@@ -198,8 +198,20 @@
 		<script src="{{asset('assets/libs/rickshaw/rickshaw.min.js')}}"></script>
 		@endif
 		<script src="{{asset('assets/libs/nanoscroller/jquery.nanoscroller.min.js')}}"></script>
+		<div class="modal fade" id="ajaxModal" tabindex="-1" role="dialog" aria-hidden="true">
+		</div>
 		@stack('scripts')
 		<!-- END JAVASCRIPT -->
+		<script>
+			$('.ajaxModal').on('click',  function(){
+				var modal = $('#ajaxModal');
+				url = $(this).attr('href');
+				modal.load(url, function(response){
+
+				});
+				modal.show();
+			});
+		</script>
 
 
 	</body>

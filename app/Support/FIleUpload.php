@@ -8,7 +8,7 @@ trait FileUpload
 {
     protected function upload(Request $request, $entity, $files = 'documents')
     {
-        if ($uploaded = $request->files->{$files}) {
+        if ($uploaded = $request->file($files)) {
             foreach ($uploaded as $upload) {
                 $name = $upload->store('uploads');
                 $entity->files()->create(['name' => $name]);
