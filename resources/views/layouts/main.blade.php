@@ -203,13 +203,14 @@
 		@stack('scripts')
 		<!-- END JAVASCRIPT -->
 		<script>
-			$('.ajaxModal').on('click',  function(){
+			$('.ajaxModal').on('click',  function(e){
+				e.preventDefault();
 				var modal = $('#ajaxModal');
 				url = $(this).attr('href');
 				modal.load(url, function(response){
 
 				});
-				modal.show();
+				modal.modal('show');
 			});
 		</script>
 

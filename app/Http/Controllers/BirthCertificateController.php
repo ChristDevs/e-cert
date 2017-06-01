@@ -136,4 +136,14 @@ class BirthCertificateController extends Controller
     public function destroy($id)
     {
     }
+
+    /**
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function attachments(Certificate $cert)
+    {
+        return view('certificates.modals.files', compact('cert'));
+    }
 }

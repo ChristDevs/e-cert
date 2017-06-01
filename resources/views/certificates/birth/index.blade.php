@@ -33,7 +33,7 @@
 							    <li><a href=""><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
                                 <li><a href=""><i class="md md-done-all"></i> &nbsp; Approve</a></li>
 								@if($cert->files->count() > 0)
-								<li><a href="{{route('cert.attachments')}}" classs="ajaxModal"><i class="md md-attachment"></i> &nbsp; Attached Documents</a></li>
+								<li><a href="{{route('cert.attachments', $cert->id)}}" class="ajaxModal"><i class="md md-attachment"></i> &nbsp; Attached Documents</a></li>
 								@endif
 						    </ul>
 						</li>
