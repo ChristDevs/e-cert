@@ -62,6 +62,6 @@ class Certificate extends Model
      **/
     public function setSerialNumberAttribute()
     {
-        $this->attributes['serial_number'] = (int) str_limit(str_shuffle(time().rand()), 11);
+        $this->attributes['serial_number'] = (int) str_limit(str_shuffle(time().rand()), 7);
     }
 }
