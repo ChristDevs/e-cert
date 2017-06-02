@@ -17,9 +17,9 @@ class CreateCertificatesTable extends Migration
             $table->integer('person_id', false, true);
             $table->string('status', 10);
             $table->integer('auth_by', false, true)->nullable();
-            $table->timestamp('auth_on');
+            $table->timestamp('auth_on')->nullable();
             $table->boolean('processed')->default(false);
-            $table->integer('created_by', false, true);
+            $table->integer('created_by', false, true)->nullable();
             $table->integer('serial_number')->unique();
             $table->string('place_of_wedding')->nullable();
             $table->string('overseen_by')->nullable();
