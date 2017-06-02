@@ -25,5 +25,5 @@ Route::resource('people', 'PeopleController');
 Route::post('birth/create-for-existing/{person}', ['as' => 'birth.create.Existing', 'uses' => 'BirthCertificateController@createFromExisting']);
 Route::get('certificates/attacments/{cert}', ['as' => 'cert.attachments', 'uses' => 'BirthCertificateController@attachments']);
 Route::get('attachment/download/uploads/{file}', function ($file) {
-    return Storage::get('uploads/'.$file);
+    return response()->download(storage_path('app/uploads/'.$file));
 });

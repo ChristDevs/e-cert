@@ -20,7 +20,7 @@
                                         <div class="tile-text">File Attachment {{$key+1}}</div>
 									</a>
 									<a href="{{url('attachment/download', $file->name)}}" class="btn btn-flat ink-reaction">
-									    <i class="fa fa-trash"></i>
+									    <i class="fa fa-download"></i>
 									</a>
 								</li>
 								@endforeach

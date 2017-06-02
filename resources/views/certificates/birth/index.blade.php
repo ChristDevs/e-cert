@@ -29,7 +29,7 @@
 						        <i class="fa fa-ellipsis-v"></i>
 							</a>
 						    <ul class="dropdown-menu pull-right">
-								<li><a href=""><i class="md md-now-widgets"></i> &nbsp; View</a></li>
+								<li><a href="{{route('birth.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View</a></li>
 							    <li><a href=""><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
                                 <li><a href=""><i class="md md-done-all"></i> &nbsp; Approve</a></li>
 								@if($cert->files->count() > 0)

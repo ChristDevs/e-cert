@@ -95,6 +95,7 @@ class BirthCertificateController extends Controller
      */
     public function show($id)
     {
+        return view('certificates.birth.view');
     }
 
     /**
