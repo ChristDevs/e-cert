@@ -11,7 +11,7 @@
 								<div class="card">
 									<div class="card-body ">
 										<div id="rootwizard1" class="form-wizard form-wizard-horizontal">
-											{!! Form::open(['url' => route('birth.store'), 'files' => true, 'class' => "form form-validation", 'novalidate' => "novalidate", 'method' => 'patch']) !!}
+											{!! Form::open(['url' => route('birth.store'), 'files' => true, 'class' => "form form-validation", 'novalidate' => "novalidate", 'method' => 'post']) !!}
 												@include('certificates.partials._createBirth')
 											{!! Form::close() !!}
 										</div><!--end #rootwizard -->
