@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 trait FileUpload
 {
-    protected function upload(Request $request, $entity, $files = 'documents')
+    protected function upload(Request $request, $entity, $files = 'documents'): bool
     {
         if ($uploaded = $request->file($files)) {
             if (is_array($uploaded)) {
@@ -14,18 +14,18 @@ trait FileUpload
                     $this->savefiles($upload, $entity);
                 }
 
-                return;
+                return true;
             }
             $this->savefiles($uploaded, $entity);
 
-            return;
+            return true;
         }
+
+        return false;
     }
 
     /**
-     * undocumented function summary.
-     *
-     * Undocumented function long description
+     * Move uploaded files to the storage location.
      *
      * @param type var Description
      **/

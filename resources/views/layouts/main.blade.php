@@ -130,16 +130,10 @@
 								<img src="{{asset('assets/img/avatar1.jpg')}}?1403934956" alt="" />
 								<span class="profile-info">
 									{{Auth::user()->name}}
-									<small>Administrator</small>
+									<small>{{Auth::user()->email}}</small>
 								</span>
 							</a>
 							<ul class="dropdown-menu animation-dock">
-								<li class="dropdown-header">Config</li>
-								<li><a href="../../html/pages/profile.html">My profile</a></li>
-								<li><a href="../../html/pages/blog/post.html">My blog <span class="badge style-danger pull-right">16</span></a></li>
-								<li><a href="../../html/pages/calendar.html">My appointments</a></li>
-								<li class="divider"></li>
-								<li><a href="../../html/pages/locked.html"><i class="fa fa-fw fa-lock"></i> Lock</a></li>
 								<li><a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

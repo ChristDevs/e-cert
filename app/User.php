@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -27,4 +28,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Encrypt the password attribute.
+     *
+     * @param string $password Raw password string
+     **/
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    /**
+     * Return certificate applications applied by user.
+     *
+     * @return HasManyRelation
+     **/
+    public function certs(): HasMany
+    {
+        return $this->hasMany('App\Entities\Certificate', 'created_by');
+    }
 }

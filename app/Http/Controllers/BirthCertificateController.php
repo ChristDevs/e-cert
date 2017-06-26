@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\Updatable;
 use App\Entities\Person;
 use App\Support\FileUpload;
 use App\Entities\Certificate;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BirthCertificateRequest;
 
 class BirthCertificateController extends Controller
 {
-    use FileUpload;
+    use FileUpload, Updatable;
     /**
      * Certificate model instance.
      *
@@ -41,9 +44,12 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $certs = $this->cert->where('type', 'birth')->get();
+        if (auth()->user()->hasRole('user')) {
+            $certs = auth()->user()->certs->where('type', 'birth')->all();
+        }
 
         return view('certificates.birth.index', compact('certs'));
     }
@@ -53,7 +59,7 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(): View
     {
         return view('certificates.birth.create');
     }
@@ -63,7 +69,7 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createFromInstance(Person $person)
+    public function createFromInstance(Person $person): View
     {
         return view('certificates.birth.CreateForExisting', compact('person'));
     }
@@ -75,7 +81,7 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(BirthCertificateRequest $request)
+    public function store(BirthCertificateRequest $request): RedirectResponse
     {
         $notes = $request->has('notes') ? $request->get('notes') : '';
         $person = $this->people->create($request->input());
@@ -95,7 +101,12 @@ class BirthCertificateController extends Controller
      */
     public function show($id)
     {
-        return view('certificates.birth.view');
+        $cert = $this->cert->findOrFail($id);
+        if ($cert->approved) {
+            return view('certificates.birth.view', compact('cert'));
+        }
+
+        return back();
     }
 
     /**
@@ -105,8 +116,11 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id): View
     {
+        $cert = $this->cert->findOrFail($id);
+
+        return view('certificates.partials.process-certificate', compact('cert'));
     }
 
     /**
@@ -117,7 +131,7 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createFromExisting(Person $person, BirthCertificateRequest $request)
+    public function createFromExisting(Person $person, BirthCertificateRequest $request): RedirectResponse
     {
         $notes = $request->has('notes') ? $request->get('notes') : '';
         $person->update($request->input());
@@ -134,16 +148,21 @@ class BirthCertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
+        $this->cert->destroy($id);
+
+        return redirectWithInfo(route('birth.index'));
     }
 
     /**
+     * Display the file attachments.
+     *
      * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function attachments(Certificate $cert)
+    public function attachments(Certificate $cert): View
     {
         return view('certificates.modals.files', compact('cert'));
     }

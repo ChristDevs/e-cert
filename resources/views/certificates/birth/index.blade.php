@@ -14,13 +14,19 @@
 									{{$cert->person->fullname.', ['.ucfirst($cert->type).' Certificate]'}}
 									<small>
 										@if($cert->status == 'pending')
-										    {{! empty($cert->notes) ? $cert->notes : 'Queued for processing'}}
+										    {{'Queued for processing'}}
 										@endif
 										@if($cert->status == 'processed')
-											{{! empty($cert->proccess_notes) ? $cert->proccess_notes : 'Awaiting final approval'}}
+											{{! 'Processed! Awaiting final approval'}}
 										@endif
 										@if($cert->status == 'approved')
-											{{! empty($cert->approval_notes) ? $cert->approval_notes : 'Processed'}}
+											{{'Certificate is ready'}}
+										@endif
+										@if($cert->status == 'revoked')
+											{{'Certificate request revoked by Registrar'}}
+										@endif
+										@if($cert->status == 'declined')
+											{{'Certificate request declined view for more details '}}
 										@endif
 									</small>
 								</div>
@@ -29,9 +35,15 @@
 						        <i class="fa fa-ellipsis-v"></i>
 							</a>
 						    <ul class="dropdown-menu pull-right">
-								<li><a href="{{route('birth.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View</a></li>
-							    <li><a href=""><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
-                                <li><a href=""><i class="md md-done-all"></i> &nbsp; Approve</a></li>
+						    @if($cert->approved)
+								<li><a href="{{route('birth.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View Certificate</a></li>
+							@endif
+							@if(! $cert->approved)
+								<li><a href="{{route('birth.application', $cert->id)}}"><i class="md md-question-answer"></i> &nbsp; View Application</a></li>
+							@endif
+							@role(['officer', 'owner'])
+							    <li><a href="{{ route('birth.edit', $cert->id) }}"><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
+							@endrole
 								@if($cert->files->count() > 0)
 								<li><a href="{{route('cert.attachments', $cert->id)}}" class="ajaxModal"><i class="md md-attachment"></i> &nbsp; Attached Documents</a></li>
 								@endif

@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 
 class File extends Model
@@ -12,7 +13,7 @@ class File extends Model
     /**
      * Get all of the owning entity models.
      */
-    public function entity()
+    public function entity(): MorphTo
     {
         return $this->morphTo();
     }
@@ -22,7 +23,7 @@ class File extends Model
      *
      * @return Symfony\Component\HttpFoundation\File\File File instance
      **/
-    public function getFileAttribute()
+    public function getFileAttribute(): SymfonyFile
     {
         return new SymfonyFile(storage_path('app/'.$this->attributes['name']));
     }

@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Person extends Model
 {
@@ -29,9 +30,9 @@ class Person extends Model
      *
      * Get all certificates associatated to this person
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyRelation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function certificates()
+    public function certificates(): HasMany
     {
         return $this->hasMany('App\Entities\Certificate');
     }
@@ -43,7 +44,7 @@ class Person extends Model
      *
      * @param type var Description
      **/
-    public function getFullnameAttribute()
+    public function getFullnameAttribute(): string
     {
         $name = "{$this->first_name} {$this->last_name} {$this->sir_name}";
 
@@ -57,8 +58,20 @@ class Person extends Model
      *
      * @param type var Description
      **/
-    public function getDobAttribute()
+    public function getDobAttribute(): string
     {
         return \Carbon\Carbon::parse($this->attributes['dob'])->format('Y-m-d');
+    }
+
+    /**
+     * undocumented function summary.
+     *
+     * Undocumented function long description
+     *
+     * @param type var Description
+     **/
+    public function getAddressAttribute(): string
+    {
+        return ucwords($this->attributes['residence'].', '.$this->attributes['city'].', '.$this->attributes['zip']);
     }
 }

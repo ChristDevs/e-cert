@@ -13834,5 +13834,31 @@ li.L8 {
   -webkit-transform: translate3d(0, -43px, 0);
   transform: translate3d(0, -43px, 0);
 }
+@media print {
+      #menubar,
+      #header,
+      #content .section-header,
+      .offcanvas-holder {
+        display: none !important;
+      }
+
+      #content,
+      #content .section-body {
+        padding: 0;
+      }
+
+      .card-printable {
+        display: block;
+      }
+      .card-printable .card-head {
+        display: none;
+      }
+
+      body,
+      #content > section {
+        background-color: #ffffff;
+        border: 0;
+      }
+    } 
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIvY3NzL2FwcC5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

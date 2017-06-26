@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
 use App\User;
+use App\Entities\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -30,9 +32,14 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * Create a new controller instance.
+     * Created user instance.
      *
-     * @return void
+     * @var User
+     **/
+    private $user;
+
+    /**
+     * Create a new controller instance.
      */
     public function __construct()
     {
@@ -42,13 +49,15 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|max:255',
+            'phone_number' => 'required|min:10',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -57,15 +66,18 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        DB::transaction(function () use ($data) {
+            $this->user = User::create($data);
+            $client = Role::where('name', 'user')->first();
+            $this->user->attachRole($client);
+        });
+
+        return $this->user;
     }
 }

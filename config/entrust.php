@@ -5,11 +5,9 @@
  * a role & permission management solution for Laravel.
  *
  * @license MIT
- * @package Zizaco\Entrust
  */
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Entrust Role Model
@@ -19,7 +17,7 @@ return [
     | the role if it is in a different namespace.
     |
     */
-    'role' => 'App\Role',
+    'role' => 'App\Entities\Role',
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +38,7 @@ return [
     | Update the permission if it is in a different namespace.
     |
     */
-    'permission' => 'App\Permission',
+    'permission' => 'App\Entities\Permission',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,5 +86,4 @@ return [
     |--------------------------------------------------------------------------
     */
     'role_foreign_key' => 'role_id',
-
 ];
