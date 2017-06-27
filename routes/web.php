@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::resource('birth', 'BirthCertificateController');
+Route::resource('marriage', 'MarriageCertificateController');
 Route::get('birth/show-application/{id}', ['as' => 'birth.application', 'uses' =>'BirthCertificateController@edit']);
 Route::get('birth/create-for-existing/{person}', ['as' => 'birth.createExisting', 'uses' => 'BirthCertificateController@createFromInstance']);
 Route::resource('people', 'PeopleController');
