@@ -67,13 +67,13 @@
 																		</a>
 																	    <ul class="dropdown-menu pull-right">
 																	    @if($cert->approved)
-																			<li><a href="{{route('birth.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View Certificate</a></li>
+																			<li><a href="{{route($cert->type.'.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View Certificate</a></li>
 																		@endif
 																		@if(! $cert->approved)
-																			<li><a href="{{route('birth.application', $cert->id)}}"><i class="md md-question-answer"></i> &nbsp; View Application</a></li>
+																			<li><a href="{{route($cert->type.'.application', $cert->id)}}"><i class="md md-question-answer"></i> &nbsp; View Application</a></li>
 																		@endif
 																		@role(['officer', 'owner'])
-																		    <li><a href="{{ route('birth.edit', $cert->id) }}"><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
+																		    <li><a href="{{ route($cert->type.'.edit', $cert->id) }}"><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
 																		@endrole
 																			@if($cert->files->count() > 0)
 																			<li><a href="{{route('cert.attachments', $cert->id)}}" class="ajaxModal"><i class="md md-attachment"></i> &nbsp; Attached Documents</a></li>

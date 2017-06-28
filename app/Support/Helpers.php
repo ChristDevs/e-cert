@@ -9,9 +9,11 @@ if (!function_exists('witInfo')) {
      *
      * @return \Illuminate\Http\Response
      */
-    function withInfo($message = 'Request Successful', $type = 'success')
+    function withInfo($message = 'Request was Successful', $type = 'success', $title = 'Success')
     {
-        return redirect()->back()->withErrors([$type => $type, 'message' => $message], 'noty');
+        flash_message($message, $type, $title);
+
+        return redirect()->back();
     }//end withInfo()
 }
 
@@ -25,9 +27,11 @@ if (!function_exists('redirectWitInfo')) {
      *
      * @return \Illuminate\Http\Response
      */
-    function redirectWithInfo($url, $message = 'Request Successful', $type = 'success')
+    function redirectWithInfo($url, $message = 'Request Successful', $type = 'success', $title = 'Success')
     {
-        return redirect($url)->withErrors([$type => $type, 'message' => $message], 'noty');
+        flash_message($message, $type, $title);
+
+        return redirect($url);
     }//end redirectWithInfo()
 }
 
@@ -92,3 +96,18 @@ if (!function_exists('isActive')) {
         return $check($route);
     }//end isActive()
 }//end if
+
+if (!function_exists('flash_message')) {
+    
+    /**
+     * Flash a message into the session to be displayed to the user.
+     *
+     * @param string $message
+     * @param string $type
+     * @param string $title
+     */
+    function flash_message(string $message, string $type, string $title)
+    {
+        request()->session()->flash('messages', ['type' => $type, 'message' => $message, 'title' => $title]);
+    }
+}

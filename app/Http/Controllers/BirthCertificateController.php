@@ -88,7 +88,7 @@ class BirthCertificateController extends Controller
         $cert = $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by'), 'status' => 'pending', 'serial_number' => 0]);
 
         $this->upload($request, $cert);
-
+        $request->session()->flash('messages', ['type' => 'success', 'title' => 'Success !! Apllication submited', 'message' => "Your Apllication for birth certificate for $person->fullname was successful. You will be notified once approved"]);
         return redirectWithInfo(route('birth.index'));
     }
 

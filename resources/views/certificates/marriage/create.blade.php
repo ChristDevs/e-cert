@@ -11,13 +11,13 @@
 									<div class="card">
 										<div class="card-body ">
 											<div id="rootwizard1" class="form-wizard form-wizard-horizontal">
-												{!! Form::open(['url' => route('marriage.store'), 'files' => true, 'class' => "form form-validation", 'novalidate' => "novalidate", 'method' => 'post']) !!}
+												{!! Form::open(['url' => route('marriage.store'), 'files' => true, 'class' => "form", 'novalidate' => "novalidate", 'method' => 'post']) !!}
 													@include('certificates.partials._createMarriage')
 												{!! Form::close() !!}
 											</div><!--end #rootwizard -->
 										</div><!--end .card-body -->
 									</div><!--end .card -->
-									<em class="text-caption">Birth Certificate Application wizard</em>
+									<em class="text-caption">Marriage Certificate Application wizard</em>
 								</div><!--end .col -->
 							</div><!--end .row -->
 							<!-- END FORM WIZARD -->

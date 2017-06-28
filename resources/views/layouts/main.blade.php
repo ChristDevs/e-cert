@@ -65,27 +65,49 @@
 						</li>
 						<li class="dropdown hidden-xs">
 							<a href="javascript:void(0);" class="btn btn-icon-toggle btn-default" data-toggle="dropdown">
-								<i class="fa fa-bell"></i><sup class="badge style-danger">4</sup>
+								<i class="fa fa-bell"></i><sup class="badge style-danger">{{Auth::user()->unreadNotifications()->count()}}</sup>
 							</a>
 							<ul class="dropdown-menu animation-expand">
-								<li class="dropdown-header">Today's messages</li>
+								<li class="dropdown-header">Notifications</li>
+								@foreach(Auth::user()->unreadNotifications->take(3)->all() as $notification)
+								@php
+									$notification = new class($notification) {
+										public $notification;
+
+
+										public function __construct($notification)
+										{
+											$this->data = new class($notification){
+												public function __construct($notification)
+												{
+													$this->data = (object) $notification->data;
+												}
+												public function __get($val)
+												{
+													return $this->data->{$val} ?? null;
+												}
+
+											};
+											$this->notification = $notification;
+										}
+										public function __get($val)
+										{
+											return $this->notification->{$val};
+										}
+
+									}
+								@endphp
 								<li>
-									<a class="alert alert-callout alert-warning" href="javascript:void(0);">
-										<img class="pull-right img-circle dropdown-avatar" src="{{asset('assets/img/avatar2.jpg')}}?1404026449" alt="" />
-										<strong>Alex Anistor</strong><br/>
-										<small>Testing functionality...</small>
+									<a class="alert alert-callout alert-{{$notification->data->alert}}" href="javascript:void(0);">
+										<img class="pull-right img-circle dropdown-avatar" src="{{asset('assets/img/avatar1.jpg')}}" alt="" />
+										<strong>{{$notification->data->type}} Certificate</strong><br/>
+										<small>{{$notification->data->title}}</small>
 									</a>
 								</li>
-								<li>
-									<a class="alert alert-callout alert-info" href="javascript:void(0);">
-										<img class="pull-right img-circle dropdown-avatar" src="{{asset('assets/img/avatar3.jpg')}}?1404026799" alt="" />
-										<strong>Alicia Adell</strong><br/>
-										<small>Reviewing last changes...</small>
-									</a>
-								</li>
+								@endforeach
 								<li class="dropdown-header">Options</li>
-								<li><a href="../../html/pages/login.html">View all messages <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
-								<li><a href="../../html/pages/login.html">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+								<li><a href="{{url('notifications')}}">View all messages <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+								<li><a href="{{url('notifications/mark-as-read')}}">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
 							</ul><!--end .dropdown-menu -->
 						</li><!--end .dropdown -->
 						<li class="dropdown hidden-xs">
@@ -163,6 +185,7 @@
 			<!-- BEGIN CONTENT-->
 			<div id="content">
 				<section id="app">
+					@include('partials.messages')
 					@yield('content')
 				</section>
 			</div><!--end #content-->

@@ -16,7 +16,7 @@
 										<!-- BEGIN INVOICE HEADER -->
 										<div class="row">
 											<div class="col-xs-8">
-												<h1 class="text-light"><i class="fa fa-certificate fa-fw fa-2x text-accent-dark"> </i>{{ucfirst($cert->type)}} <strong class="text-accent-dark">Certificate</strong></h1>
+												<h1 class="text-light"><i class="fa fa-certificate fa-fw fa-2x text-success"> </i>{{ucfirst($cert->type)}} <strong class="text-success">Certificate</strong></h1>
 											</div>
 											<div class="col-xs-4 text-right">
 												<h1 class="text-light text-default-light"></h1>
@@ -30,7 +30,7 @@
 										<div class="row">
 											<div class="col-xs-4">
 												<h4 class="text-light">Requested by</h4>
-												<address style="text-transform: uppercase;">
+												<address style="">
 													<strong>{{$cert->createdBy->name}}</strong><br>
 													{{$cert->createdBy->email}}<br>
 													<abbr title="Phone">P:</abbr> {{$cert->createdBy->phone_number}}
@@ -38,7 +38,7 @@
 											</div><!--end .col -->
 											<div class="col-xs-4">
 												<h4 class="text-light">Prepared for</h4>
-												<address style="text-transform: uppercase;">
+												<address style="">
 													<strong>{{$cert->person->fullname}}</strong><br>
 													{{$cert->person->address}}<br>
 													{{$cert->person->dob}}<br>

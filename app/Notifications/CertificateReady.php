@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use App\Entities\Certificate;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -12,15 +13,21 @@ class CertificateReady extends Notification
     use Queueable;
 
     /**
+     * Certificate model
+     *
+     * @var Certificate
+     **/
+    public $cert;
+
+    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Certificate $certificate)
     {
-        //
+        $this->cert = $certificate;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -29,7 +36,7 @@ class CertificateReady extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -41,9 +48,11 @@ class CertificateReady extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->greeting('Hallo! '.$notifiable->name)
+                    ->subject("Your application for {$this->cert->type} was successful")
+                    ->line($this->cert->approval_notes)
+                    ->action('View On Site', route("{$this->cert->type}.application", $this->cert->id))
+                    ->line('Thank you for using '.config('app.name'));
     }
 
     /**
@@ -55,6 +64,11 @@ class CertificateReady extends Notification
     public function toArray($notifiable)
     {
         return [
+            'alert' => 'success',
+            'type' => $this->cert->type,
+            'certificate' => $this->cert->id,
+            'title' => "Your application for {$this->cert->type} was successful",
+            'message' => $this->cert->approval_notes,
             //
         ];
     }

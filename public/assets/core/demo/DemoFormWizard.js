@@ -22,8 +22,12 @@
         this._initWizard1();
     };
     p._validate = function(tab, navigation, index) {
-        var form = wizard.find('.form-validation');
+        var form = wizard.find('form');
+        if(! form.hasClass('form-validation')){
+            return true;
+        }
         var valid = form.valid();
+        
         if (!valid) {
             form.data('validator').focusInvalid();
             return false;

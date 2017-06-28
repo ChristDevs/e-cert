@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Entities\Certificate;
 use Illuminate\Http\RedirectResponse;
 use App\Notifications\CertificateReady;
+use App\Notifications\CertificateApplicationDeclined;
 use App\Notifications\CertificateApplicationRevoked;
 
 trait Updatable
@@ -33,7 +34,7 @@ trait Updatable
                     if ($user->hasRole('owner')) {
                         $data['status'] = 'declined';
                         $data['process_notes'] = $request->get('proccess_notes');
-                        $this->notify($cert->createdBy, new CertificateApplicationRevoked($cert));
+                        $this->notify($cert->createdBy, new CertificateApplicationDeclined($cert));
                         $data['proccessed_on'] = Carbon::now();
                     }
                     break;
@@ -71,7 +72,7 @@ trait Updatable
             $cert->update($data);
         }
 
-        return back();
+        return withInfo();
     }
     /**
      * Send notification
@@ -89,5 +90,20 @@ trait Updatable
         } catch (\Swift_TransportException $e) {
             return false;
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id): RedirectResponse
+    {
+        $cert = $this->cert->find($id);
+        $original = clone $cert;
+        $cert->delete();
+        return redirectWithInfo(route($cert->type.'.index'));
     }
 }

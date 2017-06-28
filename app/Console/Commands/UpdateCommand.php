@@ -41,6 +41,7 @@ class UpdateCommand extends Command
             sleep(1);
             $bar->advance();
         }
+        sleep(1);
         $bar->finish();
         $this->comment("\n");
         $this->info('Update was successful!');

@@ -24,6 +24,9 @@ class Person extends Model
         'created_at',
         'updated_at',
     ];
+    protected $casts = [
+        'married' => 'boolean',
+    ];
 
     /**
      * Certificate Relation.
