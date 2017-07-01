@@ -1,17 +1,8 @@
 @extends('layouts.main')
     @section('content')
-	    <div class="section-body">
-	    	<div class="card">
-				<div class="card-head">
-				<ul class="nav nav-tabs nav-justified" data-toggle="tabs">
-					<li class="active"><a href="#first4">Pending</a></li>
-					<li><a href="#second4"> Processed</a></li>
-					<li><a href="#third4">Revoked</a></li>
-					<li><a href="#third4">Approved</a></li>
-				</ul>
-			</div><!--end .card-head -->`
-			<div class="card-body tab-content">
-				<div class="tab-pane active" id="first4">
+    <div class="section-body">
+        <div class="card">
+				<div class="card-body no-padding">
 					<ul class="list">
                     @foreach($certs as $cert)
 						<li class="tile">
@@ -45,23 +36,19 @@
 							</a>
 						    <ul class="dropdown-menu pull-right">
 						    @if($cert->approved)
-								<li><a href="{{route('birth.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View Certificate</a></li>
+								<li><a href="{{route('death.show', $cert->id)}}"><i class="md md-now-widgets"></i> &nbsp; View Certificate</a></li>
 							@endif
 							@if(! $cert->approved)
-								<li><a href="{{route('birth.application', $cert->id)}}"><i class="md md-question-answer"></i> &nbsp; View Application</a></li>
+								<li><a href="{{route('death.application', $cert->id)}}"><i class="md md-question-answer"></i> &nbsp; View Application</a></li>
 							@endif
 							@role(['officer', 'owner'])
-							    <li><a href="{{ route('birth.edit', $cert->id) }}"><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
+							    <li><a href="{{ route('death.edit', $cert->id) }}"><i class="md md-spellcheck"></i> &nbsp; Process</a></li>
 							@endrole
-								@if($cert->files->count() > 0)
-								<li><a href="{{route('cert.attachments', $cert->id)}}" class="ajaxModal"><i class="md md-attachment"></i> &nbsp; Attached Documents</a></li>
-								@endif
 						    </ul>
 						</li>
                         @endforeach
 					</ul>
 				</div><!--end .card-body -->
 			</div>
-		</div>
     </div>
     @endsection

@@ -93,7 +93,7 @@
                           <tbody>
                             <tr class="">
                               <td class="text-center" colspan="5">
-                                <p class="aspire title">
+                                <p class="aspire title h4" style="line-height: 35px;">
                                   This is to certify that <strong>{{$cert->person->fullname}}</strong> born on {{$cert->person->dob}} in {{$cert->person->birth_place}} to {{$cert->person->name_of_father}} and {{$cert->person->name_of_mother}} is hereby awarded Certificate of birth. The Registrar for {{$cert->person->county_of_birth}} County, hereby certify that this certificate is compiled from an entry/return in the Register of Births in the County. 
                                   </p> 
                               </td>

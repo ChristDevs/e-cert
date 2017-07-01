@@ -99,15 +99,26 @@
 					<label class="control-label">This marriage was Overseen by</label>
 					{!! error_msg($errors, 'overseen_by') !!}
 				</div>
-				<div class="form-group">
-					{!! Form::textarea('notes', old('notes'), ['class' => 'form-control', 'rows' => 3]) !!}															
-					<label for="notes" class="control-label">Notes</label>
+				<div class="form-group {{error($errors, 'overseer_position')}}">
+					{!! Form::text('overseer_position', old('overseer_position'), ['class' => 'form-control','placeholder' => "Reverend, Govornor, Commisioner etc " , 'required' => 'true']) !!}
+					<label class="control-label">Position or Designation</label>
+					{!! error_msg($errors, 'overseer_position') !!}
+				</div>
+				<div class="form-group {{error($errors, 'event_location')}}">
+					{!! Form::text('event_location', old('event_location'), ['class' => 'form-control','placeholder' => "New York City, Holy Ministries Church etc" , 'required' => 'true']) !!}
+					<label class="control-label">Area of Administration</label>
+					{!! error_msg($errors, 'event_location') !!}
+				</div>
+				<div class="form-group {{error($errors, 'notes')}}">
+					{!! Form::textarea('notes', old('notes'), ['class' => 'form-control', 'rows' => 3, 'placeholder' => 'This Information will be used by the reviewer to issue a certificate']) !!}															
+					<label for="notes" class="control-label">Why do you need this certificate</label>
+					{!! error_msg($errors, 'notes') !!}
 				</div>													
 			</div><!--end #tab3 -->
 			<div class="tab-pane" id="tab4"><br/><br/>
 				<div class="col-sm-12">
 					<div class="row">
-						<h3>Witness 1</h3>
+						<h4>Witness 1</h4>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group {{error($errors, 'witness1_name')}}">
@@ -126,7 +137,7 @@
 				</div>	
 				<div class="col-sm-12">
 					<div class="row">
-						<h3>Witness 2</h3>
+						<h4>Witness 2</h4>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group {{error($errors, 'witness2_name')}}">
@@ -145,7 +156,7 @@
 				</div>	
 				<div class="col-sm-12">
 					<div class="row">
-						<h3>Witness 3</h3>
+						<h4>Witness 3</h4>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group {{error($errors, 'witness3_name')}}">
@@ -164,7 +175,7 @@
 				</div>	
 				<div class="col-sm-12">
 					<div class="row">
-						<h3>Witness 4</h3>
+						<h4>Witness 4</h4>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group {{error($errors, 'witness4_name')}}">
@@ -183,7 +194,7 @@
 				</div>	
 				<div class="col-sm-12">
 					<div class="row">
-						<h3>Witness 5</h3>
+						<h4>Witness 5</h4>
 					</div>
 					<div class="col-sm-6">
 						<div class="form-group {{error($errors, 'witness5_name')}}">

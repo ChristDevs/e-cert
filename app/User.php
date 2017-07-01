@@ -30,6 +30,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * Attribute casting
+     *
+     * @var array
+     **/
+    protected $casts = [
+        'blocked' => 'boolean'
+    ];
+
+    /**
      * Encrypt the password attribute.
      *
      * @param string $password Raw password string
@@ -47,5 +56,17 @@ class User extends Authenticatable
     public function certs(): HasMany
     {
         return $this->hasMany('App\Entities\Certificate', 'created_by');
+    }
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author
+     **/
+    public function getUserRolesAttribute()
+    {
+        return implode(', ', $this->roles->map(function ($role) {
+            return $role->name;
+        })->all());
     }
 }

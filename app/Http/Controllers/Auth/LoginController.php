@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +37,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+    /**
+     * The user has been authenticated.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\User $user
+     *
+     * @return RedirectResponse
+     */
+    protected function authenticated(Request $request, $user): RedirectResponse
+    {
+        if ($user->blocked) {
+            auth()->logout();
+            flash_message('You are blocked from accessing the dashboard please contact the site admin', 'danger', 'Access Denied');
+            return redirect()->route('login');
+        }
+        return redirect($this->redirectPath());
     }
 }

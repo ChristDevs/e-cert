@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Entities\Certificate;
 use Illuminate\Http\RedirectResponse;
 use App\Notifications\CertificateReady;
+use App\Notifications\CertificateProcessed;
 use App\Notifications\CertificateApplicationDeclined;
 use App\Notifications\CertificateApplicationRevoked;
 
@@ -50,6 +51,7 @@ trait Updatable
                     if ($user->hasRole('owner')) {
                         $data['process_notes'] = $request->get('proccess_notes');
                         $data['proccessed_on'] = Carbon::now();
+                         $this->notify($cert->createdBy, new CertificateProcessed($cert));
                     }
                     break;
                 case 'approve':
@@ -104,6 +106,6 @@ trait Updatable
         $cert = $this->cert->find($id);
         $original = clone $cert;
         $cert->delete();
-        return redirectWithInfo(route($cert->type.'.index'));
+        return redirectWithInfo(route($original->type.'.index'));
     }
 }

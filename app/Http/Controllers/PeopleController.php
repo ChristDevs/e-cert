@@ -26,6 +26,9 @@ class PeopleController extends Controller
     public function index()
     {
         $people = $this->people->all();
+        if (auth()->user()->hasRole('user')) {
+            $people = $this->people->where('user_id', auth()->user()->id)->get();
+        }
 
         return view('people.index', compact('people'));
     }
@@ -73,8 +76,9 @@ class PeopleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Person $person)
     {
+        return view('people.update', compact('person'));
     }
 
     /**

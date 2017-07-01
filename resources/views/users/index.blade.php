@@ -5,7 +5,7 @@
 
 							<!-- BEGIN SEARCH HEADER -->
 							<div class="card-head style-primary">
-								
+								<header>SYSTEM USERS</header>
 							</div><!--end .card-head -->
 							<!-- END SEARCH HEADER -->
 
@@ -15,7 +15,7 @@
 
 									<div class="col-sm-12">
 										<div class="list-results">
-											@foreach($people as $person)
+											@foreach($users as $person)
 												<div class="col-xs-12 col-lg-6 hbox-xs">
 													<div class="hbox-column width-2">
 														<img class="img-circle img-responsive pull-left" src="{{asset('assets/img/avatar1.jpg')}}" alt="" />
@@ -23,43 +23,40 @@
 													<div class="hbox-column v-top">
 														<div class="clearfix">
 															<div class="col-lg-12 margin-bottom-lg">
-																<a class="text-lg text-medium" href="{{route('people.show', $person->id)}}">{{$person->fullname}}</a>
+																<a class="text-lg text-medium" href="#">{{$person->name}}</a>
 															</div>
 														</div>
 														<div class="clearfix opacity-75">
 															<div class="col-md-7">
-																<span class="glyphicon glyphicon-phone text-sm"></span> &nbsp; {{$person->dob}}
+																<span class="glyphicon glyphicon-phone text-sm"></span> &nbsp; {{$person->email}}
 															</div>
 															<div class="col-md-5">
-																<span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{ucfirst($person->gender)}}
+																<span class="glyphicon glyphicon-envelope text-sm"></span> &nbsp;{{ucfirst($person->phone_number)}}
 															</div>
 														</div>
 														<div class="clearfix">
 															<div class="col-lg-12">
-																<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;{{ucwords($person->residence)}}</span>
+																<span class="opacity-75"><span class="glyphicon glyphicon-map-marker text-sm"></span> &nbsp;{{ucwords($person->user_roles)}}</span>
 															</div>
 														</div>
 														<div class="stick-top-right small-padding dropdown">
 															<a href="#" class="dropdown-toggle btn btn-icon-toggle ink-reaction"  data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-															<ul class="dropdown-menu pull-right">
+															<ul class="dropdown-menu">
 																<li><a data-toggle="modal" href="#"  data-target='#person-{{$person->id}}'><i class="fa fa-trash"></i> &nbsp; Delete</a></li>
-																<li><a href="{{route('people.show', $person->id)}}">
-																<i class="md md-send"></i> &nbsp; View
-																</a></li>
-																@if($person->Certificates()->where('type', 'birth')->count() == 0)
+																@if(! $person->blocked)
 																<li>
-																	<a href="{{route('birth.createExisting', $person->id)}}">
-																		<i class="md md-web"></i> 
-																		&nbsp; Create Birth Certificate
+																	<a href="{{route('users.block', $person->id)}}">
+																		<i class="md md-lock"></i> &nbsp; Block
 																	</a>
 																</li>
 																@endif
+																@if($person->blocked)
 																<li>
-																	<a href="{{route('people.edit', $person->id)}}">
-																		<i class="md md-mode-edit"></i> 
-																		&nbsp; Update Profile
+																	<a href="{{route('users.unblock', $person->id)}}">
+																		<i class="md md-lock-open"></i> &nbsp; Unblock
 																	</a>
 																</li>
+																@endif
 															</ul>
 														</div>
 													</div><!--end .hbox-column -->
@@ -72,10 +69,10 @@
 																<h4 class="modal-title" id="simpleModalLabel">REMOVE PERSON</h4>
 															</div>
 															<div class="modal-body">
-																<p>Do you really want to remove <strong>{{$person->fullname}}</strong>?</p>
+																<p>Do you really want to remove <strong>{{$person->name}}</strong>?</p>
 															</div>
 															<div class="modal-footer">
-																<form action="{{route('people.destroy', $person->id)}}" method="post">
+																<form action="{{route('users.destroy', $person->id)}}" method="post">
 																	{!! csrf_field()."\n". method_field('delete') !!}
 																	<button type="button" class="btn btn-default" data-dismiss="modal">No Go Back</button>
 																	<button type="submit" class="btn btn-danger">Yes Delete</button>
@@ -104,5 +101,5 @@
 
 						</div><!--end .card -->
 					</div><!--end .section-body -->
-					<a class="md-btn md-fab md-fab-bottom-right btn-success ink-reaction" style="position:fixed !important; background-color: #009688;" href="{{route('people.create')}}"><i class="md md-add fa-lg" style="margin-top:13px !important; color:#fff;"></i></a>
+					<a class="md-btn md-fab md-fab-bottom-right btn-success ink-reaction" style="position:fixed !important; background-color: #009688;" href="{{route('users.create')}}"><i class="md md-add fa-lg" style="margin-top:13px !important; color:#fff;"></i></a>
     @endsection

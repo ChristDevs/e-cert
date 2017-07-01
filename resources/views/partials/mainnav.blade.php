@@ -43,7 +43,9 @@
 							</a>
 							<!--start submenu -->
 							<ul>
+								@role('user')
 								<li><a href="{{route('birth.create')}}"  class="{{isActive('birth/create')}}"><span class="title">Apply </span></a></li>
+								@endrole
 								<li><a href="{{route('birth.index')}}" class="{{isActive('birth')}}" ><span class="title">View Applicatons</span></a></li>
 							<!--	
 							<li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>
@@ -60,8 +62,10 @@
 							</a>
 							<!--start submenu -->
 							<ul>
-								<li><a href="{{route('marriage.create')}}" ><span class="title">Apply </span></a></li>
-								<li><a href="{{route('marriage.index')}}" ><span class="title">View Applicatons</span></a></li>
+								@role('user')
+								<li><a href="{{route('marriage.create')}}" class="{{isActive('marriage/create')}}"><span class="title">Apply </span></a></li>
+								@endrole
+								<li><a class="{{isActive('marriage')}}" href="{{route('marriage.index')}}" ><span class="title">View Applicatons</span></a></li>
 							<!--	
 							<li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>
 								<li><a href="../../html/mail/message.html" ><span class="title">View message</span></a></li>
@@ -77,8 +81,10 @@
 							</a>
 							<!--start submenu -->
 							<ul>
-								<li><a href="" ><span class="title">Apply </span></a></li>
-								<li><a href="../../html/mail/compose.html" ><span class="title">View Applicatons</span></a></li>
+								@role('user')
+								<li><a class="{{isActive('death/create')}}" href="{{ route('death.create') }}" ><span class="title">Apply </span></a></li>
+								@endrole
+								<li><a class="{{isActive('death')}}" href="{{ route('death.index') }}" ><span class="title">View Applicatons</span></a></li>
 							<!--	
 							<li><a href="../../html/mail/reply.html" ><span class="title">Reply</span></a></li>
 								<li><a href="../../html/mail/message.html" ><span class="title">View message</span></a></li>
@@ -89,29 +95,22 @@
 
 						<!-- BEGIN Messages -->
 						<li>
-							<a href="../../html/layouts/builder.html" >
+							<a href="{{ route('notifications.index') }}" >
 								<div class="gui-icon"><i class="md md-forum"></i></div>
-								<span class="title">Messages</span>
+								<span class="title">Notifications</span>
 							</a>
 						</li><!--end /menu-li -->
 						<!-- END Messages -->
+						@role('admin')
 						<!-- BEGIN Users -->
 						<li>
-							<a href="../../html/layouts/builder.html" >
+							<a href="{{ route('users.index') }}" >
 								<div class="gui-icon"><i class="md md-account-child"></i></div>
 								<span class="title">Users</span>
 							</a>
 						</li><!--end /menu-li -->
 						<!-- END Users -->
-						<!-- BEGIN Settings -->
-						<li>
-							<a href="../../html/layouts/builder.html" >
-								<div class="gui-icon"><i class="md md-settings"></i></div>
-								<span class="title">Settings</span>
-							</a>
-						</li><!--end /menu-li -->
-						<!-- END Settings -->
-
+						@endrole
 					</ul><!--end .main-menu -->
 					<!-- END MAIN MENU -->
 

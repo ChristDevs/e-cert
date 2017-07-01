@@ -25,16 +25,16 @@ class BirthCertificateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|alpha|min:3',
+            'last_name' => 'required|alpha|min:3',
             'dob' => 'required|date|before:'.Carbon::now(),
             'gender' => 'required|in:male,female',
-            'county_of_birth' => 'required',
-            'province_of_birth' => 'required',
-            'birth_place' => 'required',
-            'residence' => 'required',
-            'name_of_father' => 'required',
-            'name_of_mother' => 'required',
+            'county_of_birth' => 'required|string|min:3',
+            'province_of_birth' => 'required|string|min:3',
+            'birth_place' => 'required|string',
+            'residence' => 'required|string',
+            'name_of_father' => 'required|string|min:3',
+            'name_of_mother' => 'required|string|min:3',
         ];
     }
 }

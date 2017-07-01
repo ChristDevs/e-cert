@@ -9,36 +9,8 @@ use App\Entities\Certificate;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MarriageCertificateRequest;
 
-class MarriageCertificateController extends Controller
+class MarriageCertificateController extends CertificateController
 {
-    use Updatable;
-
-    /**
-     * Certificate model instance.
-     *
-     * @var mixed
-     **/
-    protected $cert;
-    /**
-     * Person model instance.
-     *
-     * @var mixed
-     **/
-    protected $people;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @param Certificate $cert
-     * @param Person      $people
-     **/
-    public function __construct(Certificate $cert, Person $people)
-    {
-        $this->middleware('auth');
-        $this->cert = $cert;
-        $this->people = $people;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -46,10 +18,7 @@ class MarriageCertificateController extends Controller
      */
     public function index()
     {
-        $certs = $this->cert->where('type', 'marriage')->get();
-        if (auth()->user()->hasRole('user')) {
-            $certs = auth()->user()->certs->where('type', 'birth')->all();
-        }
+        $certs = $this->getCertificates('marriage');
 
         return view('certificates.marriage.index', compact('certs'));
     }
@@ -78,7 +47,7 @@ class MarriageCertificateController extends Controller
         $groomEntity = $this->people->updateOrCreate(['id_no' => $groom['id_no']], $groom);
         $brideEntity = $this->people->updateOrCreate(['id_no' => $bride['id_no']], $bride);
         if ($groomEntity->marital_status == 'married' || $brideEntity->marital_status == 'married') {
-            $request->session()->flash('messages', ['type' => 'danger', 'title' => 'Whoops Certicate request submission failed!!', 'message' => ' It seems one or both of the couple is already married, if this is not true contact the system administrator']);
+            flash_message('It seems one or both of the couple is already married, if this is not true contact the system administrator', 'danger', 'Whoops Certicate request submission failed!!');
 
             return back()->withInput();
         }
@@ -101,7 +70,7 @@ class MarriageCertificateController extends Controller
             $groomEntity->save();
             $brideEntity->save();
         });
-        $request->session()->flash('messages', ['type' => 'success', 'title' => 'Success !! Application was submited', 'message' => "Your Apllication for marriage certificate for $brideEntity->fullname and $groomEntity->fullname was successful. You will be notified once approved"]);
+        flash_message("Your Apllication for marriage certificate for $brideEntity->fullname and $groomEntity->fullname was successful. You will be notified once approved", 'success', 'Success !! Application was submited');
         return redirect()->route('marriage.index');
     }
 
@@ -114,6 +83,12 @@ class MarriageCertificateController extends Controller
      */
     public function show($id)
     {
+        $cert = $this->cert->findOrFail($id);
+        if ($cert->approved) {
+            return view('certificates.marriage.view', compact('cert'));
+        }
+
+        return back();
     }
 
     /**
@@ -131,17 +106,6 @@ class MarriageCertificateController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-    }
-
-    /**
      * Build array values from request to match model attributes.
      *
      * @param Request $request
@@ -154,10 +118,10 @@ class MarriageCertificateController extends Controller
         $groom = [];
         $witnesses = [];
         foreach ($request->all() as $key => $value) {
-            if (starts_with($key, 'groom_')) {
+            if (starts_with($key, 'groom_') && $value) {
                 $groom[str_replace('groom_', '', $key)] = $value;
             }
-            if (starts_with($key, 'bride_')) {
+            if (starts_with($key, 'bride_' && $value)) {
                 $bride[str_replace('bride_', '', $key)] = $value;
             }
             if (starts_with($key, 'witness')) {

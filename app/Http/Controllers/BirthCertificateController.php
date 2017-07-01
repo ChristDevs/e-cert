@@ -2,43 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\Updatable;
 use App\Entities\Person;
-use App\Support\FileUpload;
 use App\Entities\Certificate;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BirthCertificateRequest;
 
-class BirthCertificateController extends Controller
+class BirthCertificateController extends CertificateController
 {
-    use FileUpload, Updatable;
-    /**
-     * Certificate model instance.
-     *
-     * @var mixed
-     **/
-    protected $cert;
-    /**
-     * Person model instance.
-     *
-     * @var mixed
-     **/
-    protected $people;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @param Certificate $cert
-     * @param Person      $people
-     **/
-    public function __construct(Certificate $cert, Person $people)
-    {
-        $this->middleware('auth');
-        $this->cert = $cert;
-        $this->people = $people;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -46,10 +17,7 @@ class BirthCertificateController extends Controller
      */
     public function index(): View
     {
-        $certs = $this->cert->where('type', 'birth')->get();
-        if (auth()->user()->hasRole('user')) {
-            $certs = auth()->user()->certs->where('type', 'birth')->all();
-        }
+        $certs = $this->getCertificates('birth');
 
         return view('certificates.birth.index', compact('certs'));
     }
@@ -88,8 +56,8 @@ class BirthCertificateController extends Controller
         $cert = $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by'), 'status' => 'pending', 'serial_number' => 0]);
 
         $this->upload($request, $cert);
-        $request->session()->flash('messages', ['type' => 'success', 'title' => 'Success !! Apllication submited', 'message' => "Your Apllication for birth certificate for $person->fullname was successful. You will be notified once approved"]);
-        return redirectWithInfo(route('birth.index'));
+        $this->created($cert);
+        return redirect()->route('birth.index');
     }
 
     /**
@@ -137,8 +105,9 @@ class BirthCertificateController extends Controller
         $person->update($request->input());
         $cert = $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by'), 'status' => 'pending', 'serial_number' => 0]);
         $this->upload($request, $cert);
+        $this->created($cert);
 
-        return redirectWithInfo(route('birth.index'));
+        return redirect()->route('birth.index');
     }
 
     /**

@@ -9,6 +9,7 @@
             <div class="card contain-sm">
                 <div class="card-body">
                     <div class="row">
+                        @include('partials.messages')
                         <div class="col-sm-6">
                             <br/>
                             <span class="text-lg text-bold text-primary">{{config('app.name')}}</span>

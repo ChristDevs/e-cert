@@ -17,7 +17,7 @@
                     <!-- BEGIN INVOICE HEADER -->
                     <div class="row">
                       <div class="col-xs-8">
-                        <h1 class="text-light"><i class="fa fa-certificate fa-fw fa-2x text-accent"> </i>{{ucfirst($cert->type)}} <strong class="text-accent">Certificate</strong></h1>
+                        <h1 class="text-light"><i class="fa fa-certificate fa-fw fa-2x text-danger"> </i>{{ucfirst($cert->type)}} <strong class="text-danger">Certificate</strong></h1>
                       </div>
                       <div class="col-xs-4 text-right">
                         <h3 class="text-dark">Republic of Kenya</h3>
@@ -30,36 +30,36 @@
                     <!-- BEGIN INVOICE DESCRIPTION -->
                     <div class="row">
                       <div class="col-xs-4">
-                      <h3 class="text-dark">Husband</h3>
+                      <h3 class="text-dark">Decedent's Details</h3>
                         <table id="info">
                           <tr>
                             <th width="100">Name</th>
-                            <td><strong>{{$cert->groom->fullname}}</strong></td>
+                            <td><strong>{{$cert->person->fullname}}</strong></td>
                           </tr>
                           <tr>
                             <th width="100">ID No</th>
-                            <td>{{$cert->groom->id_no}}</td>
+                            <td>{{$cert->person->id_no}}</td>
                           </tr>
                           <tr>
                             <th width="100">Born on</th>
-                            <td>{{$cert->groom->dob}}</td>
+                            <td>{{$cert->person->dob}}</td>
                           </tr>
                         </table>
                       </div><!--end .col -->
                       <div class="col-xs-4">
-                      <h3 class="text-dark">Wife</h3>
+                       <h3 class="text-dark">-</h3>
                         <table id="info">
                           <tr>
-                            <th width="100">Name</th>
-                            <td><strong>{{$cert->bride->fullname}}</strong></td>
+                            <th width="100">Died on</th>
+                            <td><strong>{{$cert->person->died_on}}</strong></td>
                           </tr>
                           <tr>
-                            <th width="100">ID No</th>
-                            <td>{{$cert->bride->id_no}}</td>
+                            <th width="100">Place of Death</th>
+                            <td>{{$cert->event_location}}</td>
                           </tr>
                           <tr>
-                            <th width="100">Born on</th>
-                            <td>{{$cert->bride->dob}}</td>
+                            <th width="100">Reported By</th>
+                            <td>{{$cert->overseen_by}}</td>
                           </tr>
                         </table>
                       </div>
@@ -67,7 +67,7 @@
                         <div class="well">
                           <div class="clearfix">
                             <div class="pull-left"> CERTIFICATE NO : </div>
-                            <div class="pull-right"> {{$cert->serial_number !=0 ?$cert->serial_number : 'Not Processed'}} </div>
+                            <div class="pull-right"> {{$cert->serial_number ?? 'Not Processed'}} </div>
                           </div>
                           <div class="clearfix">
                             <div class="pull-left"> ISSUED ON : </div>
@@ -88,31 +88,13 @@
                             <tr class="">
                               <td class="text-center" colspan="5">
                                 <p class="aspire title h4" style="line-height: 35px;">
-                                  This is to hereby certify that I <strong>{{$cert->overseen_by}}</strong> @if($cert->overseer_position ?? false) <strong>{{$cert->overseer_position}}</strong> of <strong>{{$cert->event_location}}</strong> @endif did on the {{$cert->auth_on->format('d-m-Y')}} do solemnize the rites to matrimony between <strong>{{$cert->groom->fullname}}</strong> and <strong>{{$cert->bride->fullname}}</strong> and are united in marriage as husband and wife. This union was witnessed and approved by the following: 
+                                  This is to hereby certify that I <strong>{{$cert->overseen_by}}</strong> do declare that <strong>{{$cert->person->fullname}}</strong> died on <strong>{{$cert->person->died_on}}</strong> at <strong>{{$cert->event_location}}</strong> due to {{$cert->person->cause_of_death}}
                                   </p> 
                               </td>
                             </tr>
                             <tr>
-                                <td colspan="5">
-                                    <h3 class="text-light opacity-50">Witnesses</h3>
-                                    <table class="table table-condensed">
-                                        <tbody>
-                                        @foreach($cert->witnesses as $witness)
-                                            <tr>
-                                                <th>Full Name</th>
-                                                <td><strong>{{$witness->full_name}}</strong></td>
-                                                <th>ID No</th>
-                                                <td>{{$cert->groom->id_no}}</td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            
-                            <tr>
                               <td colspan="3" rowspan="3">
-                                <h3 class="text-light"><small>The license and certificate duly signed by the person who shall have solemnized the marriage therein authorized shall be returned by him/her to the office of the town or city clerk who issued the same on or before the tenth day of the month next succeeding the date of the solemnizing of the marriage. Any person who shall willfully neglect to make such return within the time above shall be deemed guilty of misdemeanor</small></p>
+                                <h3 class="text-light"><small>This certificate is issued undert the Births and Deaths Registration Act (CAP. 149) which provides that a certified copy of any entry in any register or return purpoting to be sealed or stamped with the seal of the Pricipal Registrar shall be received as evidence of the dates and facts therein contained without any or other proof of such</small></p>
                               </td>
                               <td width="150"><strong>Date of Issue</strong></td>
                               <td width="150">{{$cert->auth_on->format('d-m-Y')}}</td>

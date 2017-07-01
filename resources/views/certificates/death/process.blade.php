@@ -16,7 +16,7 @@
 										<!-- BEGIN INVOICE HEADER -->
 										<div class="row">
 											<div class="col-xs-8">
-												<h1 class="text-light"><i class="fa fa-certificate fa-fw fa-2x text-success"> </i>{{ucfirst($cert->type)}} <strong class="text-success">Certificate</strong></h1>
+												<h1 class="text-light"><i class="fa fa-certificate fa-fw fa-2x text-danger"> </i>{{ucfirst($cert->type)}} <strong class="text-danger">Certificate</strong></h1>
 											</div>
 											<div class="col-xs-4 text-right">
 												<h1 class="text-light text-default-light"></h1>
@@ -37,12 +37,7 @@
 												</address>
 											</div><!--end .col -->
 											<div class="col-xs-4">
-												<h4 class="text-light">Prepared for</h4>
-												<address style="">
-													<strong>{{$cert->person->fullname}}</strong><br>
-													{{$cert->person->address}}<br>
-													{{$cert->person->dob}}<br>
-												</address>
+												
 											</div><!--end .col -->
 											<div class="col-xs-4">
 												<div class="well">
@@ -65,7 +60,7 @@
 										<div class="row">
 
 											<div class="col-md-12">
-												<h3 class="text-light opacity-50">Applicant Details</h3>
+												<h3 class="text-light opacity-50">Decedent's Details</h3>
 													<table class="table table-sripped">
 														<tbody>
 															<tr>
@@ -77,64 +72,29 @@
 																<td>{{ucfirst($cert->person->gender)}}</td>
 															</tr>
 															<tr>
-																<th>Place of Birth</th>
-																<td><strong>{{$cert->person->birth_place}}</strong></td>
-																<th>Province</th>
-																<td>{{$cert->person->province_of_birth}}</td>
+																<th>Residence</th>
+																<td><strong>{{$cert->person->residence}}</strong></td>
+																<th>Town or City</th>
+																<td>{{$cert->person->town}}</td>
 																<th>County</th>
 																<td>{{$cert->person->county_of_birth}}</td>
-															</tr>
-															<tr>
-																<th>Name of Mother</th>
-																<td>{{$cert->person->name_of_mother}}</td>
-																<th>Name of Father</th>
-																<td>{{$cert->person->name_of_father}}</td>
-																<th>Residence</th>
-																<td>{{$cert->person->residence}}</td>
 															</tr>
 														</tbody>
 													</table>
 													<div>
-														<strong>{{$cert->person->fullname}}</strong> was born on <strong>{{$cert->person->dob}}</strong> at <strong>{{$cert->person->birth_place}}</strong> to <strong>{{$cert->person->name_of_father}}</strong> and <strong>{{$cert->person->name_of_mother}}</strong>
+														<strong>{{$cert->person->fullname}}</strong> was as born on <strong>{{$cert->person->dob}}</strong>  died on <strong>{{$cert->person->died_on}}</strong> at <strong>{{$cert->event_location}}</strong> this death was reported by <strong>{{$cert->overseen_by}}</strong>
 													</div>
 											</div>
 											<div class="col-md-12">
 												<table class="table">
 													<tbody>
-														<tr class="hidden-print">
-															<td class="text-center" colspan="5">
-																<div class="row">
-																	<div class="card">
-																		<div class="card-body no-padding">
-																				<h3 class="text-light opacity-50 text-center">File Attachments</h3>
-																			<ul class="list divider-full-bleed">
-																				@foreach($cert->files as $key => $file)
-																				<li class="tile">
-																					<a class="tile-content ink-reaction" href="#2">
-												                                        <div class="tile-icon">
-												                                            
-												                                        </div>
-												                                        <div class="tile-text">File Attachment {{$key+1}}</div>
-																					</a>
-																					<a href="{{url('attachment/download', $file->name)}}" class="btn btn-flat ink-reaction">
-																					    <i class="fa fa-download"></i>
-																					</a>
-																				</li>
-																				@endforeach
-																			</ul>
-																		</div><!--end .card-body -->
-																	</div>
-																</div>			
-															</td>
-														</tr>
-														
 														<tr>
-															<td colspan="3" rowspan="3">
-																<h3 class="text-light opacity-50">Application notes</h3>
-																<p><small>{!! !empty($cert->notes) ? $cert->notes: 'The applicant did not provide any notes' !!}</small></p>
+															<td colspan="2" rowspan="3">
+																<h3 class="text-light opacity-50">Cause of Death</h3>
+																<p><small>{!! $cert->person->cause_of_death ?? 'The applicant did not provide any explanation' !!}</small></p>
 															</td>
-															<td class="text-right"><strong>Approval Status</strong></td>
-															<td class="text-right">{{ucfirst($cert->status)}}</td>
+															<td width="120" class="text-right"><strong>Approval Status</strong></td>
+															<td width="120" class="text-right">{{ucfirst($cert->status)}}</td>
 														</tr>
 														<tr>
 															<td class="text-right hidden-border"><strong>Processed On</strong></td>
