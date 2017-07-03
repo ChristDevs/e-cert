@@ -120,7 +120,7 @@
 														</tr>
 														<tr>
 															<td class="text-right hidden-border"><strong>Approved On</strong></td>
-															<td class="text-right hidden-border">{{($cert->processed and $cert->approved) ? $cert->auth_on->format('d-m-Y') : 'Queued'}}</td>}}</td>
+															<td class="text-right hidden-border">{{($cert->processed and $cert->approved) ? $cert->auth_on->format('d-m-Y') : 'Queued'}}</td>
 														</tr>
 														@include('certificates.partials.process')
 													</tbody>

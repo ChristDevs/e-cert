@@ -34,6 +34,7 @@ class HomeController extends Controller
         $processed = $this->getCertificates(['status' => 'processed']);
         $approved = $this->getCertificates(['status' => 'approved']);
         $certs = $this->getCertificates();
+        
         return view('home', compact('pending', 'revoked', 'processed', 'approved', 'certs'));
     }
     /**

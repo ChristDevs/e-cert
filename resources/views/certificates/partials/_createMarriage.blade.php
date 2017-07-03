@@ -121,10 +121,10 @@
 						<h4>Witness 1</h4>
 					</div>
 					<div class="col-sm-6">
-						<div class="form-group {{error($errors, 'witness1_name')}}">
-							{!! Form::text('witness1_name', old('witness1_name'), ['class' => 'form-control', 'required' => 'true']) !!}
+						<div class="form-group {{error($errors, 'witness1_full_name')}}">
+							{!! Form::text('witness1_full_name', old('witness1_full_name'), ['class' => 'form-control', 'required' => 'true']) !!}
 							<label>Full Name</label>
-							{!! error_msg($errors, 'witness1_name') !!}
+							{!! error_msg($errors, 'witness1_full_name') !!}
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -140,10 +140,10 @@
 						<h4>Witness 2</h4>
 					</div>
 					<div class="col-sm-6">
-						<div class="form-group {{error($errors, 'witness2_name')}}">
-							{!! Form::text('witness2_name', old('witness2_name'), ['class' => 'form-control', 'required' => 'true']) !!}
+						<div class="form-group {{error($errors, 'witness2_full_name')}}">
+							{!! Form::text('witness2_full_name', old('witness2_full_name'), ['class' => 'form-control', 'required' => 'true']) !!}
 							<label>Full Name</label>
-							{!! error_msg($errors, 'witness2_name') !!}
+							{!! error_msg($errors, 'witness2_full_name') !!}
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -159,10 +159,10 @@
 						<h4>Witness 3</h4>
 					</div>
 					<div class="col-sm-6">
-						<div class="form-group {{error($errors, 'witness3_name')}}">
-							{!! Form::text('witness3_name', old('witness3_name'), ['class' => 'form-control', 'required' => 'true']) !!}
+						<div class="form-group {{error($errors, 'witness3_full_name')}}">
+							{!! Form::text('witness3_full_name', old('witness3_full_name'), ['class' => 'form-control', 'required' => 'true']) !!}
 							<label>Full Name</label>
-							{!! error_msg($errors, 'witness3_name') !!}
+							{!! error_msg($errors, 'witness3_full_name') !!}
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -178,10 +178,10 @@
 						<h4>Witness 4</h4>
 					</div>
 					<div class="col-sm-6">
-						<div class="form-group {{error($errors, 'witness4_name')}}">
-							{!! Form::text('witness4_name', old('witness4_name'), ['class' => 'form-control', 'required' => 'true']) !!}
+						<div class="form-group {{error($errors, 'witness4_full_name')}}">
+							{!! Form::text('witness4_full_name', old('witness4_full_name'), ['class' => 'form-control', 'required' => 'true']) !!}
 							<label>Full Name</label>
-							{!! error_msg($errors, 'witness4_name') !!}
+							{!! error_msg($errors, 'witness4_full_name') !!}
 						</div>
 					</div>
 					<div class="col-sm-6">
@@ -197,10 +197,10 @@
 						<h4>Witness 5</h4>
 					</div>
 					<div class="col-sm-6">
-						<div class="form-group {{error($errors, 'witness5_name')}}">
-							{!! Form::text('witness5_name', old('witness5_name'), ['class' => 'form-control', 'required' => 'true']) !!}
+						<div class="form-group {{error($errors, 'witness5_full_name')}}">
+							{!! Form::text('witness5_full_name', old('witness5_full_name'), ['class' => 'form-control', 'required' => 'true']) !!}
 							<label>Full Name</label>
-							{!! error_msg($errors, 'witness5_name') !!}
+							{!! error_msg($errors, 'witness5_full_name') !!}
 						</div>
 					</div>
 					<div class="col-sm-6">

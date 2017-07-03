@@ -6,8 +6,8 @@ This project is aimed to provide online registration of birth, marriage and deat
 
 E-Cert is built on top of laravel 5.4, 
 
-	- PHP >= 5.6.4
-	- Database (MySQL, MariaDB, Postres, SQL Server or sqlite3) 
+	- PHP >= 7.0
+	- Database (MySQL, MariaDB, Postgres, SQL Server) 
 
 ### Installation
 To install run these commands on you terminal

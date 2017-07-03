@@ -1,4 +1,4 @@
-@if($cert->status == 'pending' || $cert->status == 'declined' || $cert->status == 'processed' && Auth::user()->hasRole(['owner']))
+@if(($cert->status == 'pending' || $cert->status == 'declined' || $cert->status == 'processed') && Auth::user()->hasRole(['owner']))
 														<tr>
 															<td class="text-right" colspan="5">
 															<h3 class="text-primary text-left opacity-50">Approval notes</h3>

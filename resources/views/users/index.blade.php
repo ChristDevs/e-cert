@@ -5,7 +5,7 @@
 
 							<!-- BEGIN SEARCH HEADER -->
 							<div class="card-head style-primary">
-								<header>SYSTEM USERS</header>
+								<header>System Users</header>
 							</div><!--end .card-head -->
 							<!-- END SEARCH HEADER -->
 

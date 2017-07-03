@@ -104,7 +104,7 @@
 						@role('admin')
 						<!-- BEGIN Users -->
 						<li>
-							<a href="{{ route('users.index') }}" >
+							<a class="{{isActive('admin/users*')}}" href="{{ route('users.index') }}" >
 								<div class="gui-icon"><i class="md md-account-child"></i></div>
 								<span class="title">Users</span>
 							</a>

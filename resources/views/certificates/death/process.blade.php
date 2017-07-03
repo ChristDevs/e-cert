@@ -75,14 +75,14 @@
 																<th>Residence</th>
 																<td><strong>{{$cert->person->residence}}</strong></td>
 																<th>Town or City</th>
-																<td>{{$cert->person->town}}</td>
-																<th>County</th>
-																<td>{{$cert->person->county_of_birth}}</td>
+																<td>{{$cert->person->city}}</td>
+																<th>Street</th>
+																<td>{{$cert->person->street}}</td>
 															</tr>
 														</tbody>
 													</table>
-													<div>
-														<strong>{{$cert->person->fullname}}</strong> was as born on <strong>{{$cert->person->dob}}</strong>  died on <strong>{{$cert->person->died_on}}</strong> at <strong>{{$cert->event_location}}</strong> this death was reported by <strong>{{$cert->overseen_by}}</strong>
+													<div class="h4 text-primary">
+														<strong> {{$cert->person->fullname}} </strong> was as born on <strong> {{$cert->person->dob}}</strong>  died on <strong>{{$cert->person->died_on}}</strong> at <strong>{{$cert->event_location}}</strong> this death was reported by <strong>{{$cert->overseen_by}}</strong>
 													</div>
 											</div>
 											<div class="col-md-12">
@@ -102,7 +102,7 @@
 														</tr>
 														<tr>
 															<td class="text-right hidden-border"><strong>Approved On</strong></td>
-															<td class="text-right hidden-border">{{($cert->processed and $cert->approved) ? $cert->auth_on->format('d-m-Y') : 'Queued'}}</td>}}</td>
+															<td class="text-right hidden-border">{{($cert->processed and $cert->approved) ? $cert->auth_on->format('d-m-Y') : 'Queued'}}</td>
 														</tr>
 														@include('certificates.partials.process')
 													</tbody>

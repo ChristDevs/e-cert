@@ -1,13 +1,13 @@
 @extends('layouts.main')
     @section('content')
-        <div class="section-body contain-lg">
+        <div class="section-body">
 						<div class="row">
 
 							<!-- BEGIN ADD CONTACTS FORM -->
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-head card-bordered style-primary">
-										<header>ADD A NEW USER</header>
+										<header>Add New User</header>
 										<div class="tools">
 											<a class="btn btn-icon-toggle btn-close"><i class="md md-close"></i></a>
 										</div>
@@ -80,7 +80,7 @@
 										<!-- BEGIN FORM FOOTER -->
 										<div class="card-actionbar">
 											<div class="card-actionbar-row">
-												<button type="submit" class="btn btn-accent">ADD THIS USER</button>
+												<button type="submit" class="btn btn-accent">ADD USER</button>
 											</div><!--end .card-actionbar-row -->
 										</div><!--end .card-actionbar -->
 										<!-- END FORM FOOTER -->
@@ -92,8 +92,8 @@
 
 						</div><!--end .row -->
 					</div><!--end .section-body -->
+					@include('partials.formAssets')
     @endsection
-    @include('partials.formAssets')
     @push('scripts')
      <script src="{{asset('assets/core/demo/DemoPageContacts.js')}}"></script>
      <script src="{{asset('assets/libs/select2/select2.js')}}"></script>

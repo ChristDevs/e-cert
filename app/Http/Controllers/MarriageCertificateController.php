@@ -121,7 +121,7 @@ class MarriageCertificateController extends CertificateController
             if (starts_with($key, 'groom_') && $value) {
                 $groom[str_replace('groom_', '', $key)] = $value;
             }
-            if (starts_with($key, 'bride_' && $value)) {
+            if (starts_with($key, 'bride_') && $value) {
                 $bride[str_replace('bride_', '', $key)] = $value;
             }
             if (starts_with($key, 'witness')) {

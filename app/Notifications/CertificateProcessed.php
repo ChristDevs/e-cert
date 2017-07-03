@@ -34,7 +34,7 @@ class CertificateProcessed extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via()
     {
         return ['database','mail'];
     }
@@ -61,7 +61,7 @@ class CertificateProcessed extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray()
     {
         return [
             'alert' => 'primary',
@@ -69,6 +69,7 @@ class CertificateProcessed extends Notification
             'certificate' => $this->cert->id,
             'title' => "Your application for {$this->cert->type} certificate was processed",
             'message' => $this->cert->process_notes,
+            'action' =>  'processed'
             //
         ];
     }
