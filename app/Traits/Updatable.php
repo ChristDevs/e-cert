@@ -51,7 +51,7 @@ trait Updatable
                     if ($user->hasRole('owner')) {
                         $data['process_notes'] = $request->get('proccess_notes');
                         $data['proccessed_on'] = Carbon::now();
-                         $this->notify($cert->createdBy, new CertificateProcessed($cert));
+                        $this->notify($cert->createdBy, new CertificateProcessed($cert));
                     }
                     break;
                 case 'approve':
@@ -71,23 +71,26 @@ trait Updatable
                     ];
                     break;
             }
-            $cert->update($data);
+            $cert = $cert->update($data);
+            $this->handleNotification($request, $user, $cert);
         }
 
         return withInfo();
     }
+
     /**
-     * Send notification
+     * Send notification.
      *
      * @param User $user
      * @param  $notification
      *
      * @return bool
      **/
-    protected function notify(User $user, $notification) : bool
+    protected function notify(User $user, $notification): bool
     {
         try {
             $user->notify($notification);
+
             return true;
         } catch (\Swift_TransportException $e) {
             return false;
@@ -106,6 +109,35 @@ trait Updatable
         $cert = $this->cert->find($id);
         $original = clone $cert;
         $cert->delete();
+
         return redirectWithInfo(route($original->type.'.index'));
+    }
+
+    protected function handleNotification($request, $user, $cert)
+    {
+        switch ($request->get('action')) {
+            case 'decline':
+                if ($user->hasRole('owner')) {
+                    $this->notify($cert->createdBy, new CertificateApplicationDeclined($cert));
+                }
+                break;
+            case 'revoke':
+                if ($user->hasRole('officer')) {
+                    $this->notify($cert->createdBy, new CertificateApplicationRevoked($cert));
+                }
+                break;
+            case 'process':
+                if ($user->hasRole('owner')) {
+                    $this->notify($cert->createdBy, new CertificateProcessed($cert));
+                }
+                break;
+            case 'approve':
+                if ($user->hasRole('officer')) {
+                    $this->notify($cert->createdBy, new CertificateReady($cert));
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

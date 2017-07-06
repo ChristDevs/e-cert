@@ -72,4 +72,14 @@ class CertificateReady extends Notification
             //
         ];
     }
+    /**
+     * Get the sms representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return string
+     */
+    public function toSms($notifiable) : string
+    {
+        return  "Your request for {$this->cert->type} certificate has been approved. Please visit your local office of administration to collect it";
+    }
 }

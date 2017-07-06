@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Channels\SMSChannel;
 use Illuminate\Bus\Queueable;
 use App\Entities\Certificate;
 use Illuminate\Notifications\Notification;
@@ -36,7 +37,7 @@ class CertificateApplicationDeclined extends Notification
      */
     public function via($notifiable)
     {
-        return ['database','mail'];
+        return ['database','mail', SMSChannel::class];
     }
 
     /**
@@ -61,7 +62,7 @@ class CertificateApplicationDeclined extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable) : array
     {
         return [
             'alert' => 'danger',
@@ -70,5 +71,16 @@ class CertificateApplicationDeclined extends Notification
             'message' => $this->cert->process_notes,
             'title' => "Your application for {$this->cert->type} was declined",
         ];
+    }
+
+    /**
+     * Get the sms representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return string
+     */
+    public function toSms($notifiable) : string
+    {
+        return  "Your application for {$this->cert->type} certificate was declined. Please visit the web portal for more information";
     }
 }

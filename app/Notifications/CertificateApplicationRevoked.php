@@ -71,4 +71,14 @@ class CertificateApplicationRevoked extends Notification
             'title' => "Your application for {$this->cert->type} was revoked",
         ];
     }
+    /**
+     * Get the sms representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return string
+     */
+    public function toSms($notifiable) : string
+    {
+        return  "Your application for {$this->cert->type} certificate was revoked. Please visit the web portal for more information";
+    }
 }

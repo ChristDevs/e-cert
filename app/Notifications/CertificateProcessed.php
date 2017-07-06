@@ -73,4 +73,14 @@ class CertificateProcessed extends Notification
             //
         ];
     }
+    /**
+     * Get the sms representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return string
+     */
+    public function toSms($notifiable) : string
+    {
+        return  "Your application for {$this->cert->type} certificate was processed successfully. You will be notified again when approved";
+    }
 }

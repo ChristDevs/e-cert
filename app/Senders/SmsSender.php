@@ -3,6 +3,8 @@
 namespace App\Senders;
 
 use Exception;
+use InvalidArgumentException;
+use GuzzleHttp\Client;
 
 class SmsSender
 {
@@ -17,7 +19,10 @@ class SmsSender
     protected $options = [];
     protected $from;
 
+    protected $client;
     protected static $debug = false;
+
+    public static $sandbox = true;
 
         //  API URL ENDPOINTS
     const SMS_URL = 'https://api.africastalking.com/version1/messaging';
@@ -35,10 +40,11 @@ class SmsSender
     const NOT_FOUND = 404;
     const SERVER_ERROR = 500;
 
-    public function __construct($apikey, $username, array $options = [])
+    public function __construct(Client $client, $username, $apikey, array $options = [])
     {
         $this->apiKey = $apikey;
         $this->username = $username;
+        $this->client = $client;
         $this->init($options);
     }
 
@@ -47,36 +53,30 @@ class SmsSender
         $this->headers = [
                             'Accept' => 'application/json',
                             'apiKey' => $this->apiKey,
-                            'content-type' => 'application/x-www-form-urlencoded',
+                            'Content-Type' => 'application/x-www-form-urlencoded',
                         ];
         $this->options($options);
     }
 
-    public function sendMessage(array $to, string $message)
+    public function sendMessage($to, string $message)
     {
-        if (!is_null($to) and !is_null($message)) {
-            $params = [
-                        'username' => $this->username,
-                        'message' => $message,
-                        'to' => implode(',', $to),
-                        'bulkSMSMode' => 1,
-                    ];
-            if (!is_null($this->from)) {
-                $params['from'] = $this->from;
+        $params = [
+                    'username' => $this->username,
+                    'message' => $message,
+                    'bulkSMSMode' => 1,
+                ];
+        $params['to'] = is_array($to) ? implode(',', $to) : $to;
+        if (!is_null($this->options)) {
+            foreach ($this->options as $key => $value) {
+                $params[$key] = $value;
             }
-            if (!is_null($this->options)) {
-                foreach ($this->options as $key => $value) {
-                    $params[$key] = $value;
-                }
-            }
-
-            $this->requestBody = http_build_query($params, '', '&');
-            $this->requestUrl = self::SMS_URL;
-            $this->method = 'POST';
-
-            return $this->send();
         }
-        throw new Exception('The recipient or message is missing');
+
+        $this->requestBody = http_build_query($params, '', '&');
+        $this->requestUrl = self::SMS_URL;
+        $this->method = 'POST';
+
+        return $this->send();
     }
 
     public function getUserData()
@@ -90,9 +90,12 @@ class SmsSender
     public function send()
     {
         try {
-            $this->method == 'POST' ? $this->executePost() : $this->executeGet();
-            if ((int) $this->responseInfo->http_code == self::OK || $this->responseInfo->http_code == self::CREATED) {
-                return json_decode($this->responseBody, false);
+            $response = $this->client->request($this->method, $this->requestUrl, [
+                          'body' => $this->requestBody,
+                          'headers' => $this->headers,
+                          ]);
+            if ((int) $response->getStatusCode() == self::OK || $response->getStatusCode() == self::CREATED) {
+                return json_decode($response->getBody(), false);
             }
         } catch (Exception $e) {
             throw $e;
@@ -118,7 +121,7 @@ class SmsSender
             if (in_array($key, $allowedKeys) && strlen($option) > 0) {
                 $this->options[$key] = $option;
             } else {
-                throw new Exception('Invalid key in options array: '.$key);
+                throw new InvalidArgumentException('Invalid key in options array: '.$key);
             }
         }
 
@@ -138,7 +141,7 @@ class SmsSender
     public function createSubscription($phoneNumber, $shortCode, $keyword)
     {
         if (strlen($phoneNumber) == 0 || strlen($shortCode) == 0 || strlen($keyword) == 0) {
-            throw new Exception('Please supply phoneNumber, shortCode and keyword');
+            throw new InvalidArgumentException('Please supply phoneNumber, shortCode and keyword');
         }
 
         $params = [
@@ -157,7 +160,7 @@ class SmsSender
     public function deleteSubscription($phoneNumber, $shortCode, $keyword)
     {
         if (strlen($phoneNumber) == 0 || strlen($shortCode) == 0 || strlen($keyword) == 0) {
-            throw new Exception('Please supply phoneNumber, shortCode and keyword');
+            throw new InvalidArgumentException('Please supply phoneNumber, shortCode and keyword');
         }
 
         $params = [
@@ -187,7 +190,7 @@ class SmsSender
     public function call($from, $to)
     {
         if (strlen($from) == 0 || strlen($to) == 0) {
-            throw new Exception('Please supply both from and to parameters');
+            throw new InvalidArgumentException('Please supply both from and to parameters');
         }
 
         $params = [
@@ -230,48 +233,5 @@ class SmsSender
         $this->method = 'POST';
 
         return $this->send();
-    }
-
-    protected function executeGet()
-    {
-        $ch = curl_init();
-        $this->doExecute($ch);
-    }
-
-    protected function executePost()
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->requestBody);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        $this->doExecute($ch);
-    }
-
-    protected function doExecute(&$curlHandle)
-    {
-        try {
-            $this->setCurlOpts($curlHandle);
-            $responseBody = curl_exec($curlHandle);
-
-            if (static::$debug) {
-                echo 'Full response: '.print_r($responseBody, true)."\n";
-            }
-
-            $this->responseInfo = (object) curl_getinfo($curlHandle);
-
-            $this->responseBody = $responseBody;
-            curl_close($curlHandle);
-        } catch (Exeption $e) {
-            curl_close($curlHandle);
-            throw $e;
-        }
-    }
-
-    protected function setCurlOpts(&$curlHandle)
-    {
-        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 60);
-        curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlHandle, CURLOPT_URL, $this->requestUrl);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_HTTPHEADER, $this->headers);
     }
 }
