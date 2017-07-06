@@ -58,7 +58,6 @@ class MarriageCertificateController extends CertificateController
                         'type' => 'marriage',
                         'overseen_by' => $request->get('overseen_by'),
                         'status' => 'pending',
-                        'serial_number' => 0,
                         'groom_id' => $groomEntity->id,
                         'bride_id' => $brideEntity->id,
                     ]);

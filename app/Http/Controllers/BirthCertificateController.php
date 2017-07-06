@@ -53,7 +53,7 @@ class BirthCertificateController extends CertificateController
     {
         $notes = $request->has('notes') ? $request->get('notes') : '';
         $person = $this->people->create($request->input());
-        $cert = $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by'), 'status' => 'pending', 'serial_number' => 0]);
+        $cert = $person->certificates()->create(['notes' => $notes, 'created_by' => $request->user()->id, 'type' => 'birth', 'overseen_by' => $request->get('overseen_by'), 'status' => 'pending']);
 
         $this->upload($request, $cert);
         $this->created($cert);
