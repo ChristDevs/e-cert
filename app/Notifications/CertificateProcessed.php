@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Channels\SMSChannel;
 use Illuminate\Bus\Queueable;
 use App\Entities\Certificate;
 use Illuminate\Notifications\Notification;
@@ -36,7 +37,7 @@ class CertificateProcessed extends Notification
      */
     public function via()
     {
-        return ['database','mail'];
+        return ['database','mail', SMSChannel::class];
     }
 
     /**
