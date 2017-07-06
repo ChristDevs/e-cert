@@ -40,7 +40,15 @@ class DeathCertificateController extends CertificateController
     {
         DB::transaction(function () use ($request) {
             $person = $this->people->updateOrCreate(['id_no' => $request->get('id_no')], $request->input());
-            $cert = $person->certificates()->create(array_merge(['created_by' => $request->user()->id, 'type' => 'death', 'status' => 'pending'],  $request->only('event_location', 'overseen_by')));
+            $cert = $person->certificates()->create(array_merge(
+                [
+                'created_by' => $request->user()->id,
+                'type' => 'death',
+                'status' => 'pending',
+                ],
+                $request->only('event_location', 'overseen_by')
+                )
+            );
             $person->alive = false;
             $person->save();
             $this->created($cert);
