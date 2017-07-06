@@ -71,7 +71,7 @@ trait Updatable
                     ];
                     break;
             }
-            $cert = $cert->update($data);
+            $cert->update($data);
             $this->handleNotification($request, $user, $cert);
         }
 
