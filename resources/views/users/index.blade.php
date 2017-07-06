@@ -57,6 +57,11 @@
 																	</a>
 																</li>
 																@endif
+																<li>
+																	<a href="{{route('users.edit', $person->id)}}">
+																		<i class="md md-edit"></i> &nbsp; Edit Profile
+																	</a>
+																</li>
 															</ul>
 														</div>
 													</div><!--end .hbox-column -->

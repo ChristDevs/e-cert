@@ -33,7 +33,7 @@ Route::get('attachment/download/uploads/{file}', function ($file) {
     return response()->download(storage_path('app/uploads/'.$file));
 });
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
-    Route::resource('users', 'UsersController', ['only' => ['index', 'destroy', 'store', 'create']]);
+    Route::resource('users', 'UsersController');
     Route::get('users/block/{user}', ['as' => 'users.block', 'uses' => 'UsersController@block']);
     Route::get('users/unblock/{user}', ['as' => 'users.unblock', 'uses' => 'UsersController@unblock']);
 });

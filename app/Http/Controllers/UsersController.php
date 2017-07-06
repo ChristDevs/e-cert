@@ -42,6 +42,18 @@ class UsersController extends Controller
     }
 
     /**
+     * Show the form for edit a resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user, Role $role)
+    {
+        $roles = $role->all();
+
+        return view('users.update', compact('roles', 'user'));
+    }
+
+    /**
      * Store a newly created user in storage.
      *
      * @param \Illuminate\Http\Request $request
@@ -68,6 +80,32 @@ class UsersController extends Controller
         return redirectWithInfo(route('users.index'), 'User has been created successfully');
     }
 
+    /**
+     * Store a newly created user in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(User $user, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'phone_number' => 'required|numeric|min:10',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+            'roles' => 'required|array',
+        ]);
+        DB::transaction(function () use ($request, $user) {
+            $user->update($request->input());
+            $user->detachRoles();
+            foreach ($request->get('roles') as $role) {
+                $client = Role::findOrFail($role);
+                $user->attachRole($client);
+            }
+        });
+
+        return redirectWithInfo(route('users.index'), 'User has been updateed successfully');
+    }
     /**
      * Block a specific user from accessing the dashboard
      *
