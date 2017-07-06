@@ -15,7 +15,6 @@ class AddMarriageLocationDetails extends Migration
             $table->string('overseer_position')->nullable();
             $table->string('event_location')->nullable();
             $table->text('data')->nullable();
-            $table->timestamp('proccessed_on')->nullable();
         });
         Schema::table('people', function (Blueprint $table) {
             $table->timestamp('died_on')->nullable();
