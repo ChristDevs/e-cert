@@ -19,7 +19,7 @@ class SMSChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        $message = $notification->toSms();
+        $message = $notification->toSms($notifiable);
         $this->sms->sendMessage($notifiable->phone_number, $message);
     }
 }
