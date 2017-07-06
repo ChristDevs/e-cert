@@ -37,6 +37,11 @@ class UpdateCommand extends Command
     {
         $this->info('Updating system sytings and configs');
         $bar = $this->output->createProgressBar(10);
+        try {
+            $this->call('db:seed');
+        } catch (\Exception $e) {
+        }
+
         for ($i = 1; $i <= 10; ++$i) {
             sleep(1);
             $bar->advance();

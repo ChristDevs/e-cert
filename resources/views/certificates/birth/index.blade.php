@@ -2,16 +2,8 @@
     @section('content')
 	    <div class="section-body">
 	    	<div class="card">
-				<div class="card-head">
-				<ul class="nav nav-tabs nav-justified" data-toggle="tabs">
-					<li class="active"><a href="#first4">Pending</a></li>
-					<li><a href="#second4"> Processed</a></li>
-					<li><a href="#third4">Revoked</a></li>
-					<li><a href="#third4">Approved</a></li>
-				</ul>
-			</div><!--end .card-head -->`
-			<div class="card-body tab-content">
-				<div class="tab-pane active" id="first4">
+			<div class="card-body">
+				<div>
 					<ul class="list">
                     @foreach($certs as $cert)
 						<li class="tile">

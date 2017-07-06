@@ -1,6 +1,6 @@
 @extends('layouts.main')
     @section('content')
-        <div class="section-body contain-lg">
+        <div class="section-body">
 						<div class="row">
 							<!-- BEGIN ADD CONTACTS FORM -->
 							<div class="col-md-12">

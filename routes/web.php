@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::resource('death', 'DeathCertificateController');
+Route::resource('notifications', 'NotificationsController');
 Route::resource('birth', 'BirthCertificateController');
 Route::resource('marriage', 'MarriageCertificateController');
 Route::get('birth/show-application/{id}', ['as' => 'birth.application', 'uses' => 'BirthCertificateController@edit']);
@@ -38,3 +39,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
 });
 
 Route::resource('notifications', 'NotificationsController');
+Route::get('notifications/mark-as-read/all', ['as' => 'notifications.read', 'uses' =>'NotificationsController@markAsRead']);
+Route::get('notifications/delete/{id}', ['as' => 'notifications.delete', 'uses' =>'NotificationsController@destroy']);
