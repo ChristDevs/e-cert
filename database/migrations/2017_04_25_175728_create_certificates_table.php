@@ -14,7 +14,7 @@ class CreateCertificatesTable extends Migration
         Schema::create('certificates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('type');
-            $table->integer('person_id', true, true);
+            $table->unsignedInteger('person_id')->nullable();
             $table->string('status', 10);
             $table->integer('auth_by', false, true)->nullable();
             $table->timestamp('auth_on')->nullable();
