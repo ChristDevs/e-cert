@@ -1,6 +1,8 @@
 @extends('layouts.main')
   @section('content')
-        <link rel="stylesheet" href="{{asset('fonts/stylesheet.css')}}" type="text/css" charset="utf-8" />
+        @push('css')
+        <link rel="stylesheet" href="{{asset('fonts/stylesheet.css')}}" type="text/css"/>
+        @endpush
         <div class="section-body">
             <div class="row">
               <div class="col-lg-12">

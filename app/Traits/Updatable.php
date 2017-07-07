@@ -35,7 +35,6 @@ trait Updatable
                     if ($user->hasRole('owner')) {
                         $data['status'] = 'declined';
                         $data['process_notes'] = $request->get('proccess_notes');
-                        $this->notify($cert->createdBy, new CertificateApplicationDeclined($cert));
                         $data['proccessed_on'] = Carbon::now();
                     }
                     break;
@@ -44,14 +43,12 @@ trait Updatable
                         $data['status'] = 'revoked';
                         $data['auth_on'] = Carbon::now();
                         $data['process_notes'] = $request->get('notes');
-                        $this->notify($cert->createdBy, new CertificateApplicationRevoked($cert));
                     }
                     break;
                 case 'process':
                     if ($user->hasRole('owner')) {
                         $data['process_notes'] = $request->get('proccess_notes');
                         $data['proccessed_on'] = Carbon::now();
-                        $this->notify($cert->createdBy, new CertificateProcessed($cert));
                     }
                     break;
                 case 'approve':
@@ -62,7 +59,6 @@ trait Updatable
                         $data['serial_number'] = 'temp';
                         $data['status'] = 'approved';
                         $data['auth_by'] = $user->id;
-                        $this->notify($cert->createdBy, new CertificateReady($cert));
                     }
                     break;
                 default:
